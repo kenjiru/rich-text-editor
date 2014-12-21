@@ -130,6 +130,11 @@ public class RichTextEditor extends EditText implements ActionModeListener {
 
         return false;
     }
+
+    @Override
+    public void setIsShowing(boolean isShowing) {
+
+    }
 }
 
 class UnderlineDecoration extends ComplexDecoration<UnderlineSpan, Boolean> {
