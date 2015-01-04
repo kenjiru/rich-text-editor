@@ -1,10 +1,10 @@
-package ro.kenjiru.richtexteditor.original;
+package ro.kenjiru.ui.widget.richtexteditor.original;
 
 import android.text.Spannable;
 import android.util.Log;
 
-import ro.kenjiru.richtexteditor.RichTextEditor;
-import ro.kenjiru.richtexteditor.Selection;
+import ro.kenjiru.ui.widget.richtexteditor.RichTextEditor;
+import ro.kenjiru.ui.widget.richtexteditor.Selection;
 
 public class BasicDecoration<T> implements Decoration<Boolean> {
     private Class<T> spanClass;

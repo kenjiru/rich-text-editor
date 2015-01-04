@@ -1,10 +1,10 @@
-package ro.kenjiru.richtexteditor.experiment;
+package ro.kenjiru.ui.widget.richtexteditor.experiment;
 
 import android.text.Spannable;
 import android.util.Log;
 
-import ro.kenjiru.richtexteditor.RichTextEditor;
-import ro.kenjiru.richtexteditor.Selection;
+import ro.kenjiru.ui.widget.richtexteditor.RichTextEditor;
+import ro.kenjiru.ui.widget.richtexteditor.Selection;
 
 public abstract class ComplexDecoration<S, V> {
     private Class<S> spanClass;

@@ -1,4 +1,4 @@
-package ro.kenjiru.richtexteditor.actionmode;
+package ro.kenjiru.ui.widget.richtexteditor.actionmode;
 
 import android.app.Activity;
 import android.view.ActionMode;
@@ -8,8 +8,8 @@ import android.view.MenuItem;
 
 import java.util.HashMap;
 
-import ro.kenjiru.richtexteditor.RichTextEditor;
-import ro.kenjiru.richtexteditor.Selection;
+import ro.kenjiru.ui.widget.richtexteditor.RichTextEditor;
+import ro.kenjiru.ui.widget.richtexteditor.Selection;
 
 public class ActionModeCallback implements ActionMode.Callback {
     Activity host = null;

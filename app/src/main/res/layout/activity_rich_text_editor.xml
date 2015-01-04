@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".RichTextEditorActivity">
 
-    <ro.kenjiru.richtexteditor.RichTextEditor
+    <ro.kenjiru.ui.widget.richtexteditor.RichTextEditor
         android:id="@+id/editor"
         android:text="@string/hello_world"
         android:layout_width="match_parent"

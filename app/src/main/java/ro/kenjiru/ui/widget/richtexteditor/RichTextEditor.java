@@ -1,4 +1,4 @@
-package ro.kenjiru.richtexteditor;
+package ro.kenjiru.ui.widget.richtexteditor;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import ro.kenjiru.richtexteditor.actionmode.ActionModeCallback;
-import ro.kenjiru.richtexteditor.actionmode.ActionModeListener;
-import ro.kenjiru.richtexteditor.experiment.ComplexDecoration;
+import ro.kenjiru.ui.widget.richtexteditor.actionmode.ActionModeCallback;
+import ro.kenjiru.ui.widget.richtexteditor.actionmode.ActionModeListener;
+import ro.kenjiru.ui.widget.richtexteditor.experiment.ComplexDecoration;
 
 public class RichTextEditor extends EditText implements ActionModeListener {
     UnderlineDecoration underlineDecoration = new UnderlineDecoration();

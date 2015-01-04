@@ -1,4 +1,4 @@
-package ro.kenjiru.richtexteditor;
+package ro.kenjiru.ui.widget.richtexteditor;
 
 import android.widget.EditText;
 

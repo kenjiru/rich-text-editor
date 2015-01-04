@@ -1,12 +1,12 @@
-package ro.kenjiru.richtexteditor.activities;
+package ro.kenjiru.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import ro.kenjiru.richtexteditor.R;
-import ro.kenjiru.richtexteditor.RichTextEditor;
+import ro.kenjiru.ui.widget.richtexteditor.R;
+import ro.kenjiru.ui.widget.richtexteditor.RichTextEditor;
 
 
 public class RichTextEditorActivity extends Activity {
