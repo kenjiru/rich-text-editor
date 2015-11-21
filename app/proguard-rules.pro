@@ -15,3 +15,10 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+# to enable hiting the breakpoints in fragments
+-keep public class * extends android.support.v4.** {*;}
+-keep public class * extends android.app.Fragment
