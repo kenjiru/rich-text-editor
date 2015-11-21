@@ -33,6 +33,10 @@ public class RichTextEditor extends EditText implements ActionModeListener {
         super(context, attrs, defStyle);
     }
 
+    /**
+     * Alternative method to add actions to the context action group.
+     * Unlike enableActionModes, it doesn't support nested groups.
+     */
     public void enableContextOptions() {
         setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             @Override
@@ -53,7 +57,7 @@ public class RichTextEditor extends EditText implements ActionModeListener {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch(item.getItemId()) {
+                switch (item.getItemId()) {
 
                     case R.id.action_underline:
                         makeUnderline();
@@ -78,6 +82,9 @@ public class RichTextEditor extends EditText implements ActionModeListener {
         });
     }
 
+    /**
+     * Adds extra actions to the main context action group of the EditText.
+     */
     public void enableActionModes() {
         ActionModeCallback effectsMode = new ActionModeCallback(
                 (Activity) getContext(),
