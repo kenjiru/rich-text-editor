@@ -1,16 +1,23 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:kenjiru="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RichTextEditorActivity">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"/>
 
     <ro.kenjiru.ui.widget.richtexteditor.RichTextEditor
         android:id="@+id/editor"
         android:text="@string/hello_world"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -20,136 +27,17 @@
         android:inputType="textMultiLine|textCapSentences"
         android:singleLine="false" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <include layout="@layout/format_toolbar" />
+
+    <!--android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/editor"
-        android:background="#e6ededed">
-
-        <HorizontalScrollView
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="4dp">
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue600"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue601"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue602"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue000"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue001"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue60a"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue60b"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-                <ro.kenjiru.ui.widget.CustomTextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="\ue60c"
-                    android:background="@drawable/rte_button_background"
-                    kenjiru:fontType="rich-text-editor.ttf"/>
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <ro.kenjiru.ui.widget.CustomTextView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:clickable="true"
-            android:text="\ue605"
-            android:background="@drawable/rte_button_background"
-            kenjiru:fontType="rich-text-editor.ttf"/>
-
-    </LinearLayout>
-
-    <!-- The button that will be used to open the toolbar.
-     Has a circle as a background. -->
-    <!--ImageButton
-        android:id="@+id/showToolbarButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="center|right|end"
+        android:src="@drawable/ic_action_underline"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/editor"
-        android:src="@drawable/ic_action_list"
-        android:background="@drawable/circle" /-->
+        android:layout_alignParentEnd="true" /-->
 
 </RelativeLayout>

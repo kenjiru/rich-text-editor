@@ -3,15 +3,19 @@
     package="ro.kenjiru.ui.widget.richtexteditor" >
 
     <application
+        android:theme="@style/AppTheme">
         android:allowBackup="true"
+        android:supportsRtl="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name">
+
+        <!-- android:windowSoftInputMode="adjustResize" - so the format toolbar stays at the bottom -->
 
         <activity
             android:name="ro.kenjiru.app.activities.RichTextEditorActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
