@@ -1,5 +1,11 @@
 <resources>
+    <attr name="fontType" format="string" />
+    
     <declare-styleable name="CustomTextView">
-        <attr name="fontType" format="string" />
+        <attr name="fontType" />
+    </declare-styleable>
+    
+    <declare-styleable name="CheckBox">
+        <attr name="fontType" />
     </declare-styleable>
 </resources>

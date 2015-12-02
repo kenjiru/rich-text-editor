@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+    <ro.kenjiru.ui.widget.CheckBoxGroup
+        android:id="@+id/checkbox_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ro.kenjiru.ui.widget.CheckBox
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:text="\ue600"
+            app:fontType="fonts/rich-text-editor.ttf"/>
+
+        <ro.kenjiru.ui.widget.CheckBox
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:text="\ue601"
+            app:fontType="fonts/rich-text-editor.ttf"/>
+    </ro.kenjiru.ui.widget.CheckBoxGroup>
+
+</android.support.v7.widget.Toolbar>
