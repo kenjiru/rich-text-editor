@@ -17,6 +17,8 @@ public class CheckBox extends TextView implements Checkable {
     private int uncheckedColor = Color.BLACK;
 
     private boolean mChecked;
+    private OnCheckedChangeListener mOnCheckedChangeListener;
+    private boolean mBroadcasting;
 
     public CheckBox(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -50,12 +52,20 @@ public class CheckBox extends TextView implements Checkable {
         String fontTypeAttribute = styledAttributes.getString(R.styleable.CheckBox_fontType);
 
         if (fontTypeAttribute != null) {
-            AssetManager assets = getContext().getAssets();
-            Typeface typeface = Typeface.createFromAsset(assets, fontTypeAttribute);
-
-            setTypeface(typeface);
+            setFontType(fontTypeAttribute);
         }
         styledAttributes.recycle();
+    }
+
+    public void setFontType(String fontType) {
+        AssetManager assets = getContext().getAssets();
+        Typeface typeface = Typeface.createFromAsset(assets, fontType);
+
+        setTypeface(typeface);
+    }
+
+    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
+        mOnCheckedChangeListener = listener;
     }
 
     @Override
@@ -72,6 +82,17 @@ public class CheckBox extends TextView implements Checkable {
 
             int textColor = checked ? checkedColor : uncheckedColor;
             setTextColor(textColor);
+
+            // Avoid infinite recursions if setChecked() is called from a listener
+            if (mBroadcasting) {
+                return;
+            }
+
+            mBroadcasting = true;
+            if (mOnCheckedChangeListener != null) {
+                mOnCheckedChangeListener.onCheckedChanged(this, mChecked);
+            }
+            mBroadcasting = false;
         }
     }
 
@@ -83,5 +104,9 @@ public class CheckBox extends TextView implements Checkable {
     @Override
     public void toggle() {
         setChecked(!mChecked);
+    }
+
+    public static interface OnCheckedChangeListener {
+        void onCheckedChanged(CheckBox checkBoxView, boolean isChecked);
     }
 }

@@ -4,6 +4,10 @@
     <declare-styleable name="CustomTextView">
         <attr name="fontType" />
     </declare-styleable>
+
+    <declare-styleable name="CheckBoxGroup">
+        <attr name="fontType" />
+    </declare-styleable>
     
     <declare-styleable name="CheckBox">
         <attr name="fontType" />

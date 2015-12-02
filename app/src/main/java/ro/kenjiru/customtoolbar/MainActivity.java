@@ -5,14 +5,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ro.kenjiru.ui.widget.CheckBoxGroup;
 import ro.kenjiru.ui.widget.richtexteditor.R;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +41,15 @@ public class MainActivity extends AppCompatActivity {
         checkBoxGroup.setOnCheckedChangeListener(new CheckBoxGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked) {
-                boolean foo = checked;
+                Log.i(TAG, "Button checked");
             }
         });
+
+        // test the bulk check
+        Map<Integer, Boolean> state = new HashMap<Integer, Boolean>();
+        state.put(R.id.indent, true);
+        state.put(R.id.outdent, true);
+        checkBoxGroup.checkAll(state);
     }
 
     @Override

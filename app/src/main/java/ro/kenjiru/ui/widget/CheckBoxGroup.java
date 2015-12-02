@@ -1,14 +1,18 @@
 package ro.kenjiru.ui.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
+import ro.kenjiru.ui.widget.richtexteditor.R;
+import java.util.Map;
+
 public class CheckBoxGroup extends LinearLayout {
+    private String mFontType = null;
+
     private CheckedStateTracker mChildOnCheckedChangeListener;
     private OnCheckedChangeListener mOnCheckedChangeListener;
     private PassThroughHierarchyChangeListener mPassThroughListener;
@@ -19,10 +23,24 @@ public class CheckBoxGroup extends LinearLayout {
 
     public CheckBoxGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(attrs);
 
         mChildOnCheckedChangeListener = new CheckedStateTracker();
         mPassThroughListener = new PassThroughHierarchyChangeListener();
         super.setOnHierarchyChangeListener(mPassThroughListener);
+    }
+
+    private void init(AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+
+        TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.CheckBoxGroup);
+        String fontTypeAttribute = styledAttributes.getString(R.styleable.CheckBoxGroup_fontType);
+
+        mFontType = fontTypeAttribute;
+
+        styledAttributes.recycle();
     }
 
     @Override
@@ -39,6 +57,12 @@ public class CheckBoxGroup extends LinearLayout {
         }
 
         super.addView(child, index, params);
+    }
+
+    public void checkAll(Map<Integer, Boolean> stateMap) {
+        for (Map.Entry<Integer, Boolean> entry : stateMap.entrySet()) {
+            this.check(entry.getKey(), entry.getValue());
+        }
     }
 
     public void check(int checkBoxId, boolean checked) {
@@ -68,9 +92,9 @@ public class CheckBoxGroup extends LinearLayout {
         void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked);
     }
 
-    private class CheckedStateTracker implements CompoundButton.OnCheckedChangeListener {
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            int buttonId = buttonView.getId();
+    private class CheckedStateTracker implements CheckBox.OnCheckedChangeListener {
+        public void onCheckedChanged(CheckBox checkBox, boolean isChecked) {
+            int buttonId = checkBox.getId();
 
             setChecked(buttonId, isChecked);
         }
@@ -91,6 +115,8 @@ public class CheckBoxGroup extends LinearLayout {
                     id = View.generateViewId();
                     child.setId(id);
                 }
+
+                ((CheckBox) child).setFontType(mFontType);
                 ((CheckBox) child).setOnCheckedChangeListener(mChildOnCheckedChangeListener);
             }
 
