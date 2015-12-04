@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widget;
+package ro.kenjiru.ui.widgets;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -7,7 +7,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import ro.kenjiru.ui.widget.richtexteditor.R;
+import ro.kenjiru.ui.widgets.R;
 
 public class CustomTextView extends TextView {
 

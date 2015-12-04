@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widget.richtexteditor;
+package ro.kenjiru.ui.widgets.richtexteditor;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import ro.kenjiru.ui.widget.richtexteditor.actionmode.ActionModeCallback;
-import ro.kenjiru.ui.widget.richtexteditor.actionmode.ActionModeListener;
-import ro.kenjiru.ui.widget.richtexteditor.experiment.ComplexDecoration;
+import ro.kenjiru.ui.widgets.R;
+import ro.kenjiru.ui.widgets.richtexteditor.actionmode.ActionModeCallback;
+import ro.kenjiru.ui.widgets.richtexteditor.actionmode.ActionModeListener;
+import ro.kenjiru.ui.widgets.richtexteditor.experiment.ComplexDecoration;
 
 public class RichTextEditor extends EditText implements ActionModeListener {
     UnderlineDecoration underlineDecoration = new UnderlineDecoration();
@@ -57,19 +58,16 @@ public class RichTextEditor extends EditText implements ActionModeListener {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.action_underline:
-                        makeUnderline();
-                        return true;
-
-                    case R.id.action_bold:
-                        makeBold();
-                        return true;
-
-                    case R.id.action_italic:
-                        makeItalic();
-                        return true;
+                int i = item.getItemId();
+                if (i == R.id.action_underline) {
+                    makeUnderline();
+                    return true;
+                } else if (i == R.id.action_bold) {
+                    makeBold();
+                    return true;
+                } else if (i == R.id.action_italic) {
+                    makeItalic();
+                    return true;
                 }
 
                 return false;
@@ -121,18 +119,15 @@ public class RichTextEditor extends EditText implements ActionModeListener {
 
     @Override
     public boolean doAction(int itemId) {
-        switch(itemId) {
-            case R.id.action_underline:
-                makeUnderline();
-                return true;
-
-            case R.id.action_bold:
-                makeBold();
-                return true;
-
-            case R.id.action_italic:
-                makeItalic();
-                return true;
+        if (itemId == R.id.action_underline) {
+            makeUnderline();
+            return true;
+        } else if (itemId == R.id.action_bold) {
+            makeBold();
+            return true;
+        } else if (itemId == R.id.action_italic) {
+            makeItalic();
+            return true;
         }
 
         return false;

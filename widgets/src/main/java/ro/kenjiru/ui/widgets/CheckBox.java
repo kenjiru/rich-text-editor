@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widget;
+package ro.kenjiru.ui.widgets;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -10,7 +10,7 @@ import android.view.Gravity;
 import android.widget.Checkable;
 import android.widget.TextView;
 
-import ro.kenjiru.ui.widget.richtexteditor.R;
+import ro.kenjiru.ui.widgets.R;
 
 public class CheckBox extends TextView implements Checkable {
     private int checkedColor = Color.CYAN;

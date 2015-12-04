@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_style">Style</string>
+    <string name="action_effects">Effects</string>
+
+    <string name="action_underline">Underline</string>
+    <string name="action_bold">Bold</string>
+    <string name="action_italic">Italic</string>
+    <string name="action_style_group">Style</string>
+    <string name="app_name">Widgets</string>
+</resources>

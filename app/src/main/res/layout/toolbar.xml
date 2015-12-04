@@ -10,60 +10,60 @@
     android:background="?attr/colorPrimary"
     app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    <ro.kenjiru.ui.widget.CheckBoxGroup
+    <ro.kenjiru.ui.widgets.CheckBoxGroup
         android:id="@+id/checkbox_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:fontType="fonts/rich-text-editor.ttf">
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/bold"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue600" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/italic"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue601" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/strike"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue602" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/increase_font"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue000" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/decrease_font"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue001" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/list"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue60a" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/indent"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue60b" />
 
-        <ro.kenjiru.ui.widget.CheckBox
+        <ro.kenjiru.ui.widgets.CheckBox
             android:id="@+id/outdent"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:text="\ue60c" />
 
-    </ro.kenjiru.ui.widget.CheckBoxGroup>
+    </ro.kenjiru.ui.widgets.CheckBoxGroup>
 
 </android.support.v7.widget.Toolbar>

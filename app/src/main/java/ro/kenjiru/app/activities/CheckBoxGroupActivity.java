@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import java.util.HashMap;
 import java.util.Map;
 
-import ro.kenjiru.ui.widget.CheckBoxGroup;
+import ro.kenjiru.ui.widgets.CheckBoxGroup;
 import ro.kenjiru.ui.widget.richtexteditor.R;
 
 public class CheckBoxGroupActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_checkbox_group);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

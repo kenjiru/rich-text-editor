@@ -1,6 +1,6 @@
-package ro.kenjiru.ui.widget.richtexteditor.original;
+package ro.kenjiru.ui.widgets.richtexteditor.original;
 
-import ro.kenjiru.ui.widget.richtexteditor.RichTextEditor;
+import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 
 public interface Decoration<T> {
     boolean existsInSelection(RichTextEditor editor);

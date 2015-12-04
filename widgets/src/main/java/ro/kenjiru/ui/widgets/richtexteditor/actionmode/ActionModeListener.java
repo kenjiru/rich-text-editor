@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widget.richtexteditor.actionmode;
+package ro.kenjiru.ui.widgets.richtexteditor.actionmode;
 
 public interface ActionModeListener {
     boolean doAction(int itemId);

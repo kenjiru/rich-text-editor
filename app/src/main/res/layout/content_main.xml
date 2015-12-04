@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ro.kenjiru.app.activities.CheckBoxGroupActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_checkbox_group">
 
     <TextView
         android:layout_width="wrap_content"

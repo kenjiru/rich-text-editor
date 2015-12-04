@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widget;
+package ro.kenjiru.ui.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import ro.kenjiru.ui.widget.richtexteditor.R;
+import ro.kenjiru.ui.widgets.R;
 import java.util.Map;
 
 public class CheckBoxGroup extends LinearLayout {

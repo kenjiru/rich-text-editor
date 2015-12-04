@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:padding="4dp">
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -36,7 +36,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -47,7 +47,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -58,7 +58,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -69,7 +69,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -80,7 +80,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -91,7 +91,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -102,7 +102,7 @@
                 android:background="@drawable/rte_button_background"
                 app:fontType="rich-text-editor.ttf"/>
 
-            <ro.kenjiru.ui.widget.CustomTextView
+            <ro.kenjiru.ui.widgets.CustomTextView
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"

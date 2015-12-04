@@ -3,12 +3,4 @@
     <string name="app_name">RichTextEditor</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
-    <string name="action_style">Style</string>
-    <string name="action_effects">Effects</string>
-
-    <string name="action_underline">Underline</string>
-    <string name="action_bold">Bold</string>
-    <string name="action_italic">Italic</string>
-    <string name="action_style_group">Style</string>
 </resources>
