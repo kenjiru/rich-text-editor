@@ -1,4 +1,4 @@
-package ro.kenjiru.customtoolbar;
+package ro.kenjiru.app.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,8 +16,8 @@ import java.util.Map;
 import ro.kenjiru.ui.widget.CheckBoxGroup;
 import ro.kenjiru.ui.widget.richtexteditor.R;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+public class CheckBoxGroupActivity extends AppCompatActivity {
+    private static final String TAG = "CheckBoxGroupActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
