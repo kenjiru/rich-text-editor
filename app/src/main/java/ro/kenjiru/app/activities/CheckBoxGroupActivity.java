@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ro.kenjiru.ui.widgets.CheckBoxGroup;
-import ro.kenjiru.ui.widget.richtexteditor.R;
 
 public class CheckBoxGroupActivity extends AppCompatActivity {
     private static final String TAG = "CheckBoxGroupActivity";
@@ -24,7 +23,7 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkbox_group);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar_checkbox);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -37,7 +36,6 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
         });
 
         CheckBoxGroup checkBoxGroup = (CheckBoxGroup) findViewById(R.id.checkbox_group);
-
         checkBoxGroup.setOnCheckedChangeListener(new CheckBoxGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked) {

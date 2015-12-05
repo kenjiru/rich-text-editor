@@ -8,9 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import ro.kenjiru.ui.widget.richtexteditor.R;
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
-
 
 public class RichTextEditorActivity extends AppCompatActivity {
 
