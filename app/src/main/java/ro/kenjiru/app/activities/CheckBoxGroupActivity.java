@@ -35,7 +35,7 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
             }
         });
 
-        CheckBoxGroup checkBoxGroup = (CheckBoxGroup) findViewById(R.id.checkbox_group);
+        CheckBoxGroup checkBoxGroup = (CheckBoxGroup) findViewById(R.id.format_checkbox_group);
         checkBoxGroup.setOnCheckedChangeListener(new CheckBoxGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked) {

@@ -9,57 +9,64 @@
         android:scrollbars="none">
 
         <ro.kenjiru.ui.widgets.CheckBoxGroup
-            android:id="@+id/checkbox_group"
+            android:id="@+id/format_checkbox_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:fontType="fonts/rich-text-editor.ttf">
+            app:boxTextSize="20dp"
+            app:fontType="fonts/rich-text-editor-material.ttf">
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/bold"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue600" />
+                android:text="\ue238" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/italic"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue601" />
+                android:text="\ue23f" />
+
+            <ro.kenjiru.ui.widgets.CheckBox
+                android:id="@+id/underline"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:text="\ue249" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/strike"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue602" />
+                android:text="\ue257" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/increase_font"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue000" />
+                android:text="\ue245" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/decrease_font"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue001" />
+                android:text="\ue262" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/list"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue60a" />
+                android:text="\ue241" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/indent"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue60b" />
+                android:text="\ue23e" />
 
             <ro.kenjiru.ui.widgets.CheckBox
                 android:id="@+id/outdent"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:text="\ue60c" />
+                android:text="\ue23d" />
         </ro.kenjiru.ui.widgets.CheckBoxGroup>
     </HorizontalScrollView>
