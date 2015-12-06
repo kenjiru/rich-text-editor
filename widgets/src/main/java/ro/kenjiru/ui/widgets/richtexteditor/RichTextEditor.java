@@ -27,16 +27,31 @@ public class RichTextEditor extends EditText {
         super(context, attrs, defStyle);
     }
 
-    public void makeUnderline() {
-        underlineDecoration.applyToSelection(this, true);
+    public void toggleUnderline() {
+        boolean add = !isUnderline();
+        underlineDecoration.applyToSelection(this, add);
     }
 
-    public void makeBold() {
-        boldDecoration.applyToSelection(this, true);
+    public void toggleBold() {
+        boolean add = !isBold();
+        boldDecoration.applyToSelection(this, add);
     }
 
-    public void makeItalic() {
-        italicDecoration.applyToSelection(this, true);
+    public void toggleItalic() {
+        boolean add = !isItalic();
+        italicDecoration.applyToSelection(this, add);
+    }
+
+    public boolean isUnderline() {
+        return underlineDecoration.existsInSelection(this);
+    }
+
+    public boolean isBold() {
+        return boldDecoration.existsInSelection(this);
+    }
+
+    public boolean isItalic() {
+        return italicDecoration.existsInSelection(this);
     }
 
     public void addOnSelectionChangedListener(OnSelectionChangedListener onSelectionChangedListener) {
@@ -53,28 +68,28 @@ public class RichTextEditor extends EditText {
     public interface OnSelectionChangedListener {
         void onSelectionChanged(RichTextEditor richTextEditor, int selStart, int selEnd);
     }
-}
 
-class UnderlineDecoration extends ComplexDecoration<UnderlineSpan, Boolean> {
+    class UnderlineDecoration extends ComplexDecoration<UnderlineSpan, Boolean> {
 
-    public UnderlineDecoration() {
-        super(UnderlineSpan.class);
+        public UnderlineDecoration() {
+            super(UnderlineSpan.class);
+        }
+
+        @Override
+        public Boolean getSpanValue(UnderlineSpan span) {
+            return true;
+        }
     }
 
-    @Override
-    public Boolean getSpanValue(UnderlineSpan span) {
-        return true;
-    }
-}
+    class StyleDecoration extends ComplexDecoration<StyleSpan, Integer> {
 
-class StyleDecoration extends ComplexDecoration<StyleSpan, Integer> {
+        public StyleDecoration(int style) {
+            super(StyleSpan.class, int.class, style);
+        }
 
-    public StyleDecoration(int style) {
-        super(StyleSpan.class, int.class, style);
-    }
-
-    @Override
-    public Integer getSpanValue(StyleSpan span) {
-        return span.getStyle();
+        @Override
+        public Integer getSpanValue(StyleSpan span) {
+            return span.getStyle();
+        }
     }
 }

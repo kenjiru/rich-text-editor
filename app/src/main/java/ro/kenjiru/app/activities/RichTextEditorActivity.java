@@ -3,15 +3,23 @@ package ro.kenjiru.app.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import java.util.HashMap;
+
+import ro.kenjiru.ui.widgets.CheckBoxGroup;
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 
-public class RichTextEditorActivity extends AppCompatActivity {
+public class RichTextEditorActivity extends AppCompatActivity
+        implements RichTextEditor.OnSelectionChangedListener, CheckBoxGroup.OnCheckedChangeListener {
+    private static final String TAG = "RichTextEditorActivity";
+
+    private RichTextEditor editor;
+    private CheckBoxGroup checkBoxGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +31,46 @@ public class RichTextEditorActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
 
-        RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
+        CheckBoxGroup checkBoxGroup = (CheckBoxGroup) findViewById(R.id.format_checkbox_group);
+        checkBoxGroup.setOnCheckedChangeListener(this);
+        this.checkBoxGroup = checkBoxGroup;
 
-        editor.addOnSelectionChangedListener(new RichTextEditor.OnSelectionChangedListener() {
-            @Override
-            public void onSelectionChanged(RichTextEditor richTextEditor, int selStart, int selEnd) {
-                Toast.makeText(getApplicationContext(), "Selection start: " + selStart + " end: " + selEnd, Toast.LENGTH_LONG).show();
-            }
-        });
+        RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
+        editor.addOnSelectionChangedListener(this);
+        this.editor = editor;
+    }
+
+    @Override
+    public void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked) {
+        switch (checkBoxId) {
+            case R.id.bold:
+                editor.toggleBold();
+                break;
+            case R.id.italic:
+                editor.toggleItalic();
+                break;
+            case R.id.underline:
+                editor.toggleUnderline();
+                break;
+        }
+    }
+
+    @Override
+    public void onSelectionChanged(final RichTextEditor richTextEditor, int selStart, int selEnd) {
+        Log.i(TAG, String.format("Selection start: %d, end: %d", selStart, selEnd));
+
+        if (selStart != selEnd) {
+            return;
+        }
+
+        checkBoxGroup.setOnCheckedChangeListener(null);
+
+        checkBoxGroup.checkAll(new HashMap<Integer, Boolean>() {{
+            put(R.id.bold, richTextEditor.isBold());
+            put(R.id.italic, richTextEditor.isItalic());
+            put(R.id.underline, richTextEditor.isUnderline());
+        }});
+        checkBoxGroup.setOnCheckedChangeListener(this);
     }
 
     @Override

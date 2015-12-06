@@ -14,7 +14,7 @@
 
     <ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor
         android:id="@+id/editor"
-        android:text="@string/hello_world"
+        android:text="@string/lorem_ipsum"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"

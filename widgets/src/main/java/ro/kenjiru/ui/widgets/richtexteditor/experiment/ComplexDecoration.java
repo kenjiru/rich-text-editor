@@ -22,12 +22,6 @@ public abstract class ComplexDecoration<S, V> {
         this.value = value;
     }
 
-    public abstract V getSpanValue(S span);
-
-    private boolean isSameSpan(S span) {
-        return value == null || value.equals(getSpanValue(span));
-    }
-
     public boolean existsInSelection(RichTextEditor editor) {
         Selection selection = new Selection(editor);
         Spannable str = editor.getText();
@@ -128,4 +122,10 @@ public abstract class ComplexDecoration<S, V> {
     private S[] getSpans(Spannable str, Selection selection) {
         return str.getSpans(selection.start, selection.end, spanClass);
     }
+
+    private boolean isSameSpan(S span) {
+        return value == null || value.equals(getSpanValue(span));
+    }
+
+    public abstract V getSpanValue(S span);
 }
