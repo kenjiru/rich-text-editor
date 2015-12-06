@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import ro.kenjiru.ui.widgets.R;
 import java.util.Map;
 
 public class CheckBoxGroup extends LinearLayout {
-    private String mFontType = null;
+    private String fontType = null;
+    private float boxTextSize;
+    private int uncheckedColor;
+    private int checkedColor;
 
     private CheckedStateTracker mChildOnCheckedChangeListener;
     private OnCheckedChangeListener mOnCheckedChangeListener;
@@ -36,9 +38,11 @@ public class CheckBoxGroup extends LinearLayout {
         }
 
         TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.CheckBoxGroup);
-        String fontTypeAttribute = styledAttributes.getString(R.styleable.CheckBoxGroup_fontType);
 
-        mFontType = fontTypeAttribute;
+        fontType = styledAttributes.getString(R.styleable.CheckBoxGroup_fontType);
+        boxTextSize = styledAttributes.getDimension(R.styleable.CheckBoxGroup_boxTextSize, 0);
+        uncheckedColor = styledAttributes.getColor(R.styleable.CheckBoxGroup_uncheckedColor, 0);
+        checkedColor = styledAttributes.getColor(R.styleable.CheckBoxGroup_checkedColor, 0);
 
         styledAttributes.recycle();
     }
@@ -116,8 +120,23 @@ public class CheckBoxGroup extends LinearLayout {
                     child.setId(id);
                 }
 
-                ((CheckBox) child).setFontType(mFontType);
-                ((CheckBox) child).setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+                CheckBox checkBox = (CheckBox) child;
+
+                if (fontType != null && checkBox.getFontType() == null) {
+                    checkBox.setFontType(fontType);
+                }
+
+                if (boxTextSize != 0 && checkBox.getBoxTextSize() == 0) {
+                    checkBox.setBoxTextSize(boxTextSize);
+                }
+                if (uncheckedColor != 0 && checkBox.getUncheckedColor() == 0) {
+                    checkBox.setUncheckedColor(uncheckedColor);
+                }
+                if (checkedColor != 0 && checkBox.getCheckedColor() == 0) {
+                    checkBox.setCheckedColor(checkedColor);
+                }
+
+                checkBox.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
             }
 
             if (mOnHierarchyChangeListener != null) {

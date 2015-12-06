@@ -1,15 +1,26 @@
 <resources>
+    <attr name="checked" format="boolean" />
     <attr name="fontType" format="string" />
-    
+    <attr name="boxTextSize" format="dimension" />
+    <attr name="checkedColor" format="color" />
+    <attr name="uncheckedColor" format="color" />
+
     <declare-styleable name="CustomTextView">
         <attr name="fontType" />
     </declare-styleable>
 
     <declare-styleable name="CheckBoxGroup">
         <attr name="fontType" />
+        <attr name="boxTextSize" />
+        <attr name="checkedColor" />
+        <attr name="uncheckedColor" />
     </declare-styleable>
-    
+
     <declare-styleable name="CheckBox">
+        <attr name="checked" />
         <attr name="fontType" />
+        <attr name="boxTextSize" />
+        <attr name="checkedColor" />
+        <attr name="uncheckedColor" />
     </declare-styleable>
 </resources>

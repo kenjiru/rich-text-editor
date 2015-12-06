@@ -10,11 +10,15 @@ import android.view.Gravity;
 import android.widget.Checkable;
 import android.widget.TextView;
 
-import ro.kenjiru.ui.widgets.R;
-
 public class CheckBox extends TextView implements Checkable {
-    private int checkedColor = Color.CYAN;
-    private int uncheckedColor = Color.BLACK;
+    private float defaultBoxTextSize = 18;
+    private int defaultUncheckedColor;
+    private int defaultCheckedColor = Color.CYAN;
+
+    private String fontType = null;
+    private float boxTextSize = 0;
+    private int uncheckedColor = 0;
+    private int checkedColor = 0;
 
     private boolean mChecked;
     private OnCheckedChangeListener mOnCheckedChangeListener;
@@ -41,27 +45,89 @@ public class CheckBox extends TextView implements Checkable {
             return;
         }
 
+        configureDefaultAttributes();
+        updateAttributes(attrs);
+    }
+
+    private void configureDefaultAttributes() {
         setClickable(true);
         setFocusable(true);
         setGravity(Gravity.CENTER);
         setBackground(getResources().getDrawable(R.drawable.rte_button_background));
+    }
 
-        uncheckedColor = getCurrentTextColor();
-
+    private void updateAttributes(AttributeSet attrs) {
         TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.CheckBox);
-        String fontTypeAttribute = styledAttributes.getString(R.styleable.CheckBox_fontType);
 
-        if (fontTypeAttribute != null) {
-            setFontType(fontTypeAttribute);
-        }
+        fontType = styledAttributes.getString(R.styleable.CheckBox_fontType);
+        updateFontType();
+
+        boxTextSize = styledAttributes.getDimension(R.styleable.CheckBox_boxTextSize, defaultBoxTextSize);
+        updateTextSize();
+
+        defaultUncheckedColor = getCurrentTextColor();
+        mChecked = styledAttributes.getBoolean(R.styleable.CheckBox_checked, false);
+        uncheckedColor = styledAttributes.getColor(R.styleable.CheckBox_uncheckedColor, defaultUncheckedColor);
+        checkedColor = styledAttributes.getColor(R.styleable.CheckBox_checkedColor, defaultCheckedColor);
+        updateTextColor();
+
         styledAttributes.recycle();
     }
 
+    public String getFontType() {
+        return fontType;
+    }
+
+    public float getBoxTextSize() {
+        return boxTextSize;
+    }
+
+    public int getUncheckedColor() {
+        return uncheckedColor;
+    }
+
+    public int getCheckedColor() {
+        return checkedColor;
+    }
+
     public void setFontType(String fontType) {
+        this.fontType = fontType;
+        updateFontType();
+    }
+
+    public void setBoxTextSize(float textSize) {
+        this.boxTextSize = textSize;
+        updateTextSize();
+    }
+
+    public void setUncheckedColor(int uncheckedColor) {
+        this.uncheckedColor = uncheckedColor;
+        updateTextColor();
+    }
+
+    public void setCheckedColor(int checkedColor) {
+        this.checkedColor = checkedColor;
+        updateTextColor();
+    }
+
+    private void updateFontType() {
+        if (fontType == null) {
+            return;
+        }
+
         AssetManager assets = getContext().getAssets();
         Typeface typeface = Typeface.createFromAsset(assets, fontType);
 
         setTypeface(typeface);
+    }
+
+    private void updateTextSize() {
+        setTextSize(boxTextSize);
+    }
+
+    private void updateTextColor() {
+        int textColor = mChecked ? checkedColor : uncheckedColor;
+        setTextColor(textColor);
     }
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
@@ -80,8 +146,7 @@ public class CheckBox extends TextView implements Checkable {
         if (mChecked != checked) {
             mChecked = checked;
 
-            int textColor = checked ? checkedColor : uncheckedColor;
-            setTextColor(textColor);
+            this.updateTextColor();
 
             // Avoid infinite recursions if setChecked() is called from a listener
             if (mBroadcasting) {
