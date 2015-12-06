@@ -21,6 +21,7 @@ public class RichTextEditor extends EditText implements ActionModeListener {
     UnderlineDecoration underlineDecoration = new UnderlineDecoration();
     StyleDecoration boldDecoration = new StyleDecoration(Typeface.BOLD);
     StyleDecoration italicDecoration = new StyleDecoration(Typeface.ITALIC);
+    private OnSelectionChangedListener mOnSelectionChangedListener;
 
     public RichTextEditor(Context context) {
         super(context);
@@ -136,6 +137,21 @@ public class RichTextEditor extends EditText implements ActionModeListener {
     @Override
     public void setIsShowing(boolean isShowing) {
 
+    }
+
+    public void addOnSelectionChangedListener(OnSelectionChangedListener onSelectionChangedListener) {
+        mOnSelectionChangedListener = onSelectionChangedListener;
+    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        if (mOnSelectionChangedListener != null) {
+            mOnSelectionChangedListener.onSelectionChanged(this, selStart, selEnd);
+        }
+    }
+
+    public interface OnSelectionChangedListener {
+        void onSelectionChanged(RichTextEditor richTextEditor, int selStart, int selEnd);
     }
 }
 

@@ -7,6 +7,7 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 
@@ -25,6 +26,13 @@ public class RichTextEditorActivity extends AppCompatActivity {
         RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
 //        editor.enableContextOptions();
         editor.enableActionModes();
+
+        editor.addOnSelectionChangedListener(new RichTextEditor.OnSelectionChangedListener() {
+            @Override
+            public void onSelectionChanged(RichTextEditor richTextEditor, int selStart, int selEnd) {
+                Toast.makeText(getApplicationContext(), "Selection start: " + selStart + " end: " + selEnd, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
