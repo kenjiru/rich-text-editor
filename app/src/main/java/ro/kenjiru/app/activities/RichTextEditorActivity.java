@@ -24,8 +24,6 @@ public class RichTextEditorActivity extends AppCompatActivity {
         }
 
         RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
-//        editor.enableContextOptions();
-        editor.enableActionModes();
 
         editor.addOnSelectionChangedListener(new RichTextEditor.OnSelectionChangedListener() {
             @Override
