@@ -8,11 +8,14 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 
 import ro.kenjiru.ui.widgets.richtexteditor.experiment.ComplexDecoration;
+import ro.kenjiru.ui.widgets.richtexteditor.spans.BulletSpan;
 
 public class RichTextEditor extends EditText {
     UnderlineDecoration underlineDecoration = new UnderlineDecoration();
     StyleDecoration boldDecoration = new StyleDecoration(Typeface.BOLD);
     StyleDecoration italicDecoration = new StyleDecoration(Typeface.ITALIC);
+    ListDecoration listDecoration = new ListDecoration();
+
     private OnSelectionChangedListener mOnSelectionChangedListener;
 
     public RichTextEditor(Context context) {
@@ -42,6 +45,11 @@ public class RichTextEditor extends EditText {
         italicDecoration.applyToSelection(this, add);
     }
 
+    public void toggleList() {
+        boolean add = !isList();
+        listDecoration.applyToAllLinesInSelection(this, add);
+    }
+
     public boolean isUnderline() {
         return underlineDecoration.existsInSelection(this);
     }
@@ -52,6 +60,10 @@ public class RichTextEditor extends EditText {
 
     public boolean isItalic() {
         return italicDecoration.existsInSelection(this);
+    }
+
+    public boolean isList() {
+        return listDecoration.existsInSelection(this);
     }
 
     public void addOnSelectionChangedListener(OnSelectionChangedListener onSelectionChangedListener) {
@@ -90,6 +102,17 @@ public class RichTextEditor extends EditText {
         @Override
         public Integer getSpanValue(StyleSpan span) {
             return span.getStyle();
+        }
+    }
+
+    class ListDecoration extends ComplexDecoration<BulletSpan, Integer> {
+        public ListDecoration() {
+            super(BulletSpan.class, int.class, 50);
+        }
+
+        @Override
+        public Integer getSpanValue(BulletSpan span) {
+            return 50;
         }
     }
 }

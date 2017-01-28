@@ -3,6 +3,8 @@ package ro.kenjiru.ui.widgets.richtexteditor.experiment;
 import android.text.Spannable;
 import android.util.Log;
 
+import java.util.List;
+
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 import ro.kenjiru.ui.widgets.richtexteditor.Selection;
 
@@ -64,6 +66,22 @@ public abstract class ComplexDecoration<S, V> {
         }
 
         return null;
+    }
+
+    public void applyToAllLinesInSelection(RichTextEditor editor, Boolean add) {
+        Spannable str = editor.getText();
+        Selection selection = new Selection(editor);
+
+        List<Selection> paragraphs = selection.getParagraphsInSelection(str);
+        Log.i("RichTextEditor", "paragraphs" + paragraphs.toString());
+
+        for (S span : getSpans(str, selection)) {
+            str.removeSpan(span);
+        }
+
+        for (Selection paragraph : paragraphs) {
+            str.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        }
     }
 
     public void applyToSelection(RichTextEditor editor, Boolean add) {
