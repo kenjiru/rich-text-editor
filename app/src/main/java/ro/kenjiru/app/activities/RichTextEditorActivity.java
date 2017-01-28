@@ -46,11 +46,17 @@ public class RichTextEditorActivity extends AppCompatActivity
             case R.id.bold:
                 editor.toggleBold();
                 break;
+
             case R.id.italic:
                 editor.toggleItalic();
                 break;
+
             case R.id.underline:
                 editor.toggleUnderline();
+                break;
+
+            case R.id.list:
+                editor.toggleList();
                 break;
         }
     }
@@ -69,6 +75,7 @@ public class RichTextEditorActivity extends AppCompatActivity
             put(R.id.bold, richTextEditor.isBold());
             put(R.id.italic, richTextEditor.isItalic());
             put(R.id.underline, richTextEditor.isUnderline());
+            put(R.id.list, richTextEditor.isList());
         }});
         checkBoxGroup.setOnCheckedChangeListener(this);
     }
