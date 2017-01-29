@@ -65,10 +65,6 @@ public class RichTextEditorActivity extends AppCompatActivity
     public void onSelectionChanged(final RichTextEditor richTextEditor, int selStart, int selEnd) {
         Log.i(TAG, String.format("Selection start: %d, end: %d", selStart, selEnd));
 
-        if (selStart != selEnd) {
-            return;
-        }
-
         checkBoxGroup.setOnCheckedChangeListener(null);
 
         checkBoxGroup.checkAll(new HashMap<Integer, Boolean>() {{
