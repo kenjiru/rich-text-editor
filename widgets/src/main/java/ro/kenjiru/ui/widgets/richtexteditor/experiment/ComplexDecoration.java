@@ -46,6 +46,30 @@ public abstract class ComplexDecoration<S, V> {
         return result;
     }
 
+    public boolean areAllLinesWrapped(RichTextEditor editor) {
+        Spannable spannable = editor.getText();
+        Selection selection = new Selection(editor).extendToFullLines(spannable);
+
+        S[] spansInSelection = getSpans(spannable, selection);
+        List<Selection> paragraphs = selection.getParagraphsInSelection(spannable);
+
+        if (spansInSelection.length != paragraphs.size()) {
+            return false;
+        }
+
+        int i = 0;
+        for (Selection paragraph : paragraphs) {
+            if (spannable.getSpanStart(spansInSelection[i]) != paragraph.start ||
+                    spannable.getSpanEnd(spansInSelection[i]) != paragraph.end) {
+                return false;
+            }
+
+            i++;
+        }
+
+        return true;
+    }
+
     private boolean existsInArray(S[] spans) {
         for (S span : spans) {
             if (isSameSpan(span)) {

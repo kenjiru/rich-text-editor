@@ -63,7 +63,7 @@ public class RichTextEditor extends EditText {
     }
 
     public boolean isList() {
-        return listDecoration.existsInSelection(this);
+        return listDecoration.areAllLinesWrapped(this);
     }
 
     public void addOnSelectionChangedListener(OnSelectionChangedListener onSelectionChangedListener) {
