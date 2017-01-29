@@ -103,8 +103,10 @@ public abstract class ComplexDecoration<S, V> {
             str.removeSpan(span);
         }
 
-        for (Selection paragraph : paragraphs) {
-            str.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        if (add) {
+            for (Selection paragraph : paragraphs) {
+                str.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            }
         }
     }
 
