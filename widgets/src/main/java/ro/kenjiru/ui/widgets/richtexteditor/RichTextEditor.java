@@ -60,6 +60,7 @@ public class RichTextEditor extends EditText {
             public void afterTextChanged(Editable str) {
                 if (wasNewLineCreated) {
                     wasNewLineCreated = false;
+                    listDecoration.fixParagraphs(editor);
                 }
             }
         });

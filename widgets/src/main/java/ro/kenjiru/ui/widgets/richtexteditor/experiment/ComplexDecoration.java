@@ -7,6 +7,7 @@ import java.util.List;
 
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 import ro.kenjiru.ui.widgets.richtexteditor.Selection;
+import ro.kenjiru.ui.widgets.richtexteditor.spans.BulletSpan;
 
 public abstract class ComplexDecoration<S, V> {
     private Class<S> spanClass;
@@ -148,6 +149,42 @@ public abstract class ComplexDecoration<S, V> {
                 str.setSpan(newSpanInstance(), selection.end, endOfLastSpan, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
+    }
+
+    public boolean fixParagraphs(RichTextEditor editor) {
+        Spannable spannable = editor.getText();
+        Selection selection = new Selection(editor);
+
+        S[] spansInSelection = getSpans(spannable, selection);
+        List<Selection> paragraphs = selection.getParagraphsInSelection(spannable);
+
+        if (spansInSelection.length == 0) {
+            return false;
+        }
+
+        int i = 0;
+        for (Selection paragraph : paragraphs) {
+            int spanStart = spannable.getSpanStart(spansInSelection[i]);
+            int spanEnd = spannable.getSpanEnd(spansInSelection[i]);
+
+            if (spanStart != paragraph.start || spanEnd != paragraph.end) {
+                spannable.removeSpan(spansInSelection[i]);
+
+                if (paragraph.start == paragraph.end) {
+                    // cursor at the end of line
+                    spannable.setSpan(newSpanInstance(), spanStart, paragraph.end - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    spannable.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                } else if (spanStart < paragraph.start) {
+                    // cursor at the start of the line
+                    spannable.setSpan(newSpanInstance(), spanStart, paragraph.start, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    spannable.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                }
+            }
+
+            i++;
+        }
+
+        return true;
     }
 
     private S newSpanInstance() {
