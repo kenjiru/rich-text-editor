@@ -2,9 +2,12 @@ package ro.kenjiru.ui.widgets.richtexteditor;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 
 import ro.kenjiru.ui.widgets.richtexteditor.experiment.ComplexDecoration;
@@ -18,16 +21,48 @@ public class RichTextEditor extends EditText {
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
 
+    private boolean wasNewLineCreated = false;
+
     public RichTextEditor(Context context) {
         super(context);
     }
 
     public RichTextEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        this.attachTextWatcher();
     }
 
     public RichTextEditor(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+    }
+
+    private void attachTextWatcher() {
+        final RichTextEditor editor = this;
+
+        this.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence str, int start, int count, int after) {
+                Log.i("RichTextEditor", "beforeTextChanged");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence str, int start, int before, int count) {
+                if (start == str.length()) {
+                    wasNewLineCreated = true;
+                } else if (start < str.length()) {
+                    wasNewLineCreated = (str.charAt(start) == '\n') || (str.charAt(start - 1) == '\n');
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable str) {
+                if (wasNewLineCreated) {
+                    wasNewLineCreated = false;
+                }
+            }
+        });
     }
 
     public void toggleUnderline() {
