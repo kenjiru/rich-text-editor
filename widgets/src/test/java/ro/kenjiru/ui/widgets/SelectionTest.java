@@ -16,7 +16,7 @@ public class SelectionTest {
 
         Selection fullLinesSelection = selection.extendToFullLines(str);
         assertEquals(12, fullLinesSelection.start);
-        assertEquals(56, fullLinesSelection.end);
+        assertEquals(57, fullLinesSelection.end);
     }
 
     @Test

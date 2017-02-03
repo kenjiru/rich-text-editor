@@ -32,8 +32,8 @@ public class Selection {
         int startOfParagraph = wholeLinesSelection.start;
         int endOfParagraph = wholeLinesSelection.start;
 
-        while(endOfParagraph < str.length()) {
-            if (str.charAt(endOfParagraph) == '\n' || endOfParagraph == wholeLinesSelection.end) {
+        while(endOfParagraph <= str.length()) {
+            if (endOfParagraph == wholeLinesSelection.end || str.charAt(endOfParagraph) == '\n') {
                 paragraphs.add(new Selection(startOfParagraph, endOfParagraph));
 
                 if (endOfParagraph < wholeLinesSelection.end) {
@@ -55,7 +55,7 @@ public class Selection {
         }
 
         int endOfLastParagraph = this.end;
-        while(endOfLastParagraph < str.length() - 1 && str.charAt(endOfLastParagraph) != '\n') {
+        while(endOfLastParagraph < str.length() && str.charAt(endOfLastParagraph) != '\n') {
             ++endOfLastParagraph;
         }
 
