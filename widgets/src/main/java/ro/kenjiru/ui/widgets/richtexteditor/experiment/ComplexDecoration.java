@@ -151,40 +151,59 @@ public abstract class ComplexDecoration<S, V> {
         }
     }
 
-    public boolean fixParagraphs(RichTextEditor editor) {
+    public void fixParagraphs(RichTextEditor editor) {
         Spannable spannable = editor.getText();
         Selection selection = new Selection(editor);
 
+        this.fixSpansOnMultipleParagraphs(spannable, selection);
+        this.fixMultipleSpansOnSingleParagraph(spannable, selection);
+    }
+
+    private void fixSpansOnMultipleParagraphs(Spannable spannable, Selection selection) {
         S[] spansInSelection = getSpans(spannable, selection);
+
+        if (spansInSelection.length < 1) {
+            return;
+        }
+
+        int spanStart = spannable.getSpanStart(spansInSelection[0]);
+        int spanEnd = spannable.getSpanEnd(spansInSelection[spansInSelection.length-1]);
+        Selection selectionForSpan = new Selection(spanStart, spanEnd);
+
+        List<Selection> paragraphs = selectionForSpan.getParagraphsInSelection(spannable);
+
+        if (paragraphs.size() < 2) {
+            return;
+        }
+
+        for (S span : spansInSelection) {
+            spannable.removeSpan(span);
+        }
+
+        for (Selection paragraph : paragraphs) {
+            spannable.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        }
+    }
+
+    private void fixMultipleSpansOnSingleParagraph(Spannable spannable, Selection selection) {
         List<Selection> paragraphs = selection.getParagraphsInSelection(spannable);
 
-        if (spansInSelection.length == 0) {
-            return false;
+        if (paragraphs.size() != 1) {
+            return;
         }
 
-        int i = 0;
-        for (Selection paragraph : paragraphs) {
-            int spanStart = spannable.getSpanStart(spansInSelection[i]);
-            int spanEnd = spannable.getSpanEnd(spansInSelection[i]);
+        Selection firstParagraph = paragraphs.get(0);
+        S[] spansInParagraph = getSpans(spannable, firstParagraph);
 
-            if (spanStart != paragraph.start || spanEnd != paragraph.end) {
-                spannable.removeSpan(spansInSelection[i]);
-
-                if (paragraph.start == paragraph.end) {
-                    // cursor at the end of line
-                    spannable.setSpan(newSpanInstance(), spanStart, paragraph.end - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                    spannable.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                } else if (spanStart < paragraph.start) {
-                    // cursor at the start of the line
-                    spannable.setSpan(newSpanInstance(), spanStart, paragraph.start, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                    spannable.setSpan(newSpanInstance(), paragraph.start, paragraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                }
-            }
-
-            i++;
+        if (spansInParagraph.length < 2) {
+            return;
         }
 
-        return true;
+        for (S span: spansInParagraph) {
+            spannable.removeSpan(span);
+        }
+
+        spannable.setSpan(newSpanInstance(), firstParagraph.start, firstParagraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
     }
 
     private S newSpanInstance() {

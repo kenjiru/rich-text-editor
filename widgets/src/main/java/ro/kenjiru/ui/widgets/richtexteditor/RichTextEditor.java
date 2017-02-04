@@ -20,8 +20,7 @@ public class RichTextEditor extends EditText {
     ListDecoration listDecoration = new ListDecoration();
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
-
-    private boolean wasNewLineCreated = false;
+    private boolean isProcessing = false;
 
     public RichTextEditor(Context context) {
         super(context);
@@ -49,18 +48,15 @@ public class RichTextEditor extends EditText {
 
             @Override
             public void onTextChanged(CharSequence str, int start, int before, int count) {
-                if (start == str.length()) {
-                    wasNewLineCreated = true;
-                } else if (start < str.length()) {
-                    wasNewLineCreated = (str.charAt(start) == '\n') || (str.charAt(start - 1) == '\n');
-                }
+                Log.i("RichTextEditor", "onTextChanged");
             }
 
             @Override
             public void afterTextChanged(Editable str) {
-                if (wasNewLineCreated) {
-                    wasNewLineCreated = false;
+                if (isProcessing == false) {
+                    isProcessing = true;
                     listDecoration.fixParagraphs(editor);
+                    isProcessing = false;
                 }
             }
         });
