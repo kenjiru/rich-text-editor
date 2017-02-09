@@ -30,6 +30,36 @@ public class SelectionTest {
     }
 
     @Test
+    public void extendToFullLinesEmptyFirstLine() throws Exception {
+        CharSequence str = "\nHellow World!";
+        Selection selection = new Selection(0, 0);
+
+        Selection fullLinesSelection = selection.extendToFullLines(str);
+        assertEquals(0, fullLinesSelection.start);
+        assertEquals(0, fullLinesSelection.end);
+    }
+
+    @Test
+    public void extendToFullLinesMultipleEmptyLines() throws Exception {
+        CharSequence str = "\n\nHellow World!";
+        Selection selection = new Selection(1, 1);
+
+        Selection fullLinesSelection = selection.extendToFullLines(str);
+        assertEquals(1, fullLinesSelection.start);
+        assertEquals(1, fullLinesSelection.end);
+    }
+
+    @Test
+    public void extendToFullLinesMultipleEmptyLinesMiddle() throws Exception {
+        CharSequence str = "Hellow\n\nWorld!";
+        Selection selection = new Selection(7, 7);
+
+        Selection fullLinesSelection = selection.extendToFullLines(str);
+        assertEquals(7, fullLinesSelection.start);
+        assertEquals(7, fullLinesSelection.end);
+    }
+
+    @Test
     public void getParagraphsMultiLineSelection() throws Exception {
         CharSequence str = "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.\nEtiam justo velit, elementum";
         Selection selection = new Selection(40, 70);
