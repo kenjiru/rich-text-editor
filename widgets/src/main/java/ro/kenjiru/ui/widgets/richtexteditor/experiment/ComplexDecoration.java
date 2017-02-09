@@ -1,5 +1,6 @@
 package ro.kenjiru.ui.widgets.richtexteditor.experiment;
 
+import android.text.Editable;
 import android.text.Spannable;
 import android.util.Log;
 
@@ -204,6 +205,37 @@ public abstract class ComplexDecoration<S, V> {
         }
 
         spannable.setSpan(newSpanInstance(), firstParagraph.start, firstParagraph.end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+    }
+
+    public boolean isSpanningTwoParagraphs(RichTextEditor editor) {
+        Spannable spannable = editor.getText();
+        Selection selection = new Selection(editor);
+
+        S[] spansInSelection = getSpans(spannable, selection);
+        if (spansInSelection.length != 1) {
+            return false;
+        }
+
+        int spanStart = spannable.getSpanStart(spansInSelection[0]);
+        int spanEnd = spannable.getSpanEnd(spansInSelection[0]);
+        Selection selectionForSpan = new Selection(spanStart, spanEnd);
+
+        List<Selection> paragraphs = selectionForSpan.getParagraphsInSelection(spannable);
+
+        return paragraphs.size() == 2;
+    }
+
+    public void exitEmptySpan(Editable str, int start) {
+        str.delete(start, start + 1);
+
+        Selection selection = new Selection(start, start);
+        S[] spansInSelection = getSpans(str, selection);
+
+        if (spansInSelection.length != 1) {
+            return;
+        }
+
+        str.removeSpan(spansInSelection[0]);
     }
 
     private S newSpanInstance() {

@@ -25,6 +25,13 @@ public class Selection {
         this(editor.getSelectionStart(), editor.getSelectionEnd());
     }
 
+    public boolean isCurrentParagraphEmpty(CharSequence str) {
+        Selection wholeLinesSelection = this.extendToFullLines(str);
+
+        return wholeLinesSelection.isCollapsed() && (wholeLinesSelection.start == str.length() ||
+                str.charAt(wholeLinesSelection.start) == '\n');
+    }
+
     public List<Selection> getParagraphsInSelection(CharSequence str) {
         List<Selection> paragraphs = new ArrayList<>();
 

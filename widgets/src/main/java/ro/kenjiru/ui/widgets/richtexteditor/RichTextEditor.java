@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.EditText;
 
 import ro.kenjiru.ui.widgets.richtexteditor.experiment.ComplexDecoration;
@@ -21,6 +20,9 @@ public class RichTextEditor extends EditText {
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
     private boolean isProcessing = false;
+    private boolean isCurrentParagraphEmpty = false;
+    private boolean shouldExitSpan = false;
+    private int textChangedStart;
 
     public RichTextEditor(Context context) {
         super(context);
@@ -43,19 +45,33 @@ public class RichTextEditor extends EditText {
 
             @Override
             public void beforeTextChanged(CharSequence str, int start, int count, int after) {
-                Log.i("RichTextEditor", "beforeTextChanged");
+                Selection currentSelection = new Selection(editor);
+
+                isCurrentParagraphEmpty = currentSelection.isCurrentParagraphEmpty(str);
             }
 
             @Override
             public void onTextChanged(CharSequence str, int start, int before, int count) {
-                Log.i("RichTextEditor", "onTextChanged");
+                if (isCurrentParagraphEmpty) {
+                    shouldExitSpan = listDecoration.isSpanningTwoParagraphs(editor);
+                    textChangedStart = start;
+
+                    isCurrentParagraphEmpty = false;
+                }
             }
 
             @Override
             public void afterTextChanged(Editable str) {
                 if (isProcessing == false) {
                     isProcessing = true;
-                    listDecoration.fixParagraphs(editor);
+
+                    if (shouldExitSpan) {
+                        listDecoration.exitEmptySpan(str, textChangedStart);
+                        shouldExitSpan = false;
+                    } else {
+                        listDecoration.fixParagraphs(editor);
+                    }
+
                     isProcessing = false;
                 }
             }
