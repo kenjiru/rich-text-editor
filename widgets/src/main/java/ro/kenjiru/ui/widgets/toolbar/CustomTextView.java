@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widgets;
+package ro.kenjiru.ui.widgets.toolbar;
 
 import android.content.Context;
 import android.content.res.AssetManager;

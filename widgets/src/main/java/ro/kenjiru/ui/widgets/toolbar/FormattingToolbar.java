@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widgets;
+package ro.kenjiru.ui.widgets.toolbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,7 +9,9 @@ import android.widget.LinearLayout;
 
 import java.util.Map;
 
-public class CheckBoxGroup extends LinearLayout {
+import ro.kenjiru.ui.widgets.R;
+
+public class FormattingToolbar extends LinearLayout {
     private String fontType = null;
     private float boxTextSize;
     private int uncheckedColor;
@@ -19,11 +21,11 @@ public class CheckBoxGroup extends LinearLayout {
     private OnCheckedChangeListener mOnCheckedChangeListener;
     private PassThroughHierarchyChangeListener mPassThroughListener;
 
-    public CheckBoxGroup(Context context) {
+    public FormattingToolbar(Context context) {
         this(context, null);
     }
 
-    public CheckBoxGroup(Context context, AttributeSet attrs) {
+    public FormattingToolbar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
 
@@ -37,12 +39,12 @@ public class CheckBoxGroup extends LinearLayout {
             return;
         }
 
-        TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.CheckBoxGroup);
+        TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.FormattingToolbar);
 
-        fontType = styledAttributes.getString(R.styleable.CheckBoxGroup_fontType);
-        boxTextSize = styledAttributes.getDimension(R.styleable.CheckBoxGroup_boxTextSize, 0);
-        uncheckedColor = styledAttributes.getColor(R.styleable.CheckBoxGroup_uncheckedColor, 0);
-        checkedColor = styledAttributes.getColor(R.styleable.CheckBoxGroup_checkedColor, 0);
+        fontType = styledAttributes.getString(R.styleable.FormattingToolbar_fontType);
+        boxTextSize = styledAttributes.getDimension(R.styleable.FormattingToolbar_boxTextSize, 0);
+        uncheckedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_uncheckedColor, 0);
+        checkedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_checkedColor, 0);
 
         styledAttributes.recycle();
     }
@@ -93,7 +95,7 @@ public class CheckBoxGroup extends LinearLayout {
     }
 
     public interface OnCheckedChangeListener {
-        void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked);
+        void onCheckedChanged(FormattingToolbar group, int checkBoxId, boolean checked);
     }
 
     private class CheckedStateTracker implements CheckBox.OnCheckedChangeListener {
@@ -112,7 +114,7 @@ public class CheckBoxGroup extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewAdded(View parent, View child) {
-            if (parent == CheckBoxGroup.this && child instanceof CheckBox) {
+            if (parent == FormattingToolbar.this && child instanceof CheckBox) {
                 int id = child.getId();
                 // generates an id if it's missing
                 if (id == View.NO_ID) {
@@ -148,7 +150,7 @@ public class CheckBoxGroup extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewRemoved(View parent, View child) {
-            if (parent == CheckBoxGroup.this && child instanceof CheckBox) {
+            if (parent == FormattingToolbar.this && child instanceof CheckBox) {
                 ((CheckBox) child).setOnCheckedChangeListener(null);
             }
 

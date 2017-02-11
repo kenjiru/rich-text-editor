@@ -1,4 +1,4 @@
-package ro.kenjiru.ui.widgets;
+package ro.kenjiru.ui.widgets.toolbar;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.Checkable;
 import android.widget.TextView;
+
+import ro.kenjiru.ui.widgets.R;
 
 public class CheckBox extends TextView implements Checkable {
     private float defaultBoxTextSize = 18;

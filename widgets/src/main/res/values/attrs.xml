@@ -9,7 +9,7 @@
         <attr name="fontType" />
     </declare-styleable>
 
-    <declare-styleable name="CheckBoxGroup">
+    <declare-styleable name="FormattingToolbar">
         <attr name="fontType" />
         <attr name="boxTextSize" />
         <attr name="checkedColor" />

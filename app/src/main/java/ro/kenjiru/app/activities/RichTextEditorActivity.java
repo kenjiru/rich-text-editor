@@ -11,15 +11,15 @@ import android.view.View;
 
 import java.util.HashMap;
 
-import ro.kenjiru.ui.widgets.CheckBoxGroup;
+import ro.kenjiru.ui.widgets.toolbar.FormattingToolbar;
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 
 public class RichTextEditorActivity extends AppCompatActivity
-        implements RichTextEditor.OnSelectionChangedListener, CheckBoxGroup.OnCheckedChangeListener {
+        implements RichTextEditor.OnSelectionChangedListener, FormattingToolbar.OnCheckedChangeListener {
     private static final String TAG = "RichTextEditorActivity";
 
     private RichTextEditor editor;
-    private CheckBoxGroup checkBoxGroup;
+    private FormattingToolbar formattingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,9 @@ public class RichTextEditorActivity extends AppCompatActivity
             setSupportActionBar(toolbar);
         }
 
-        CheckBoxGroup checkBoxGroup = (CheckBoxGroup) findViewById(R.id.format_checkbox_group);
-        checkBoxGroup.setOnCheckedChangeListener(this);
-        this.checkBoxGroup = checkBoxGroup;
+        FormattingToolbar formattingToolbar = (FormattingToolbar) findViewById(R.id.format_checkbox_group);
+        formattingToolbar.setOnCheckedChangeListener(this);
+        this.formattingToolbar = formattingToolbar;
 
         RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
         editor.addOnSelectionChangedListener(this);
@@ -41,7 +41,7 @@ public class RichTextEditorActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked) {
+    public void onCheckedChanged(FormattingToolbar group, int checkBoxId, boolean checked) {
         switch (checkBoxId) {
             case R.id.bold:
                 editor.toggleBold();
@@ -73,15 +73,15 @@ public class RichTextEditorActivity extends AppCompatActivity
     public void onSelectionChanged(final RichTextEditor richTextEditor, int selStart, int selEnd) {
         Log.i(TAG, String.format("Selection start: %d, end: %d", selStart, selEnd));
 
-        checkBoxGroup.setOnCheckedChangeListener(null);
+        formattingToolbar.setOnCheckedChangeListener(null);
 
-        checkBoxGroup.checkAll(new HashMap<Integer, Boolean>() {{
+        formattingToolbar.checkAll(new HashMap<Integer, Boolean>() {{
             put(R.id.bold, richTextEditor.isBold());
             put(R.id.italic, richTextEditor.isItalic());
             put(R.id.underline, richTextEditor.isUnderline());
             put(R.id.list, richTextEditor.isList());
         }});
-        checkBoxGroup.setOnCheckedChangeListener(this);
+        formattingToolbar.setOnCheckedChangeListener(this);
     }
 
     @Override

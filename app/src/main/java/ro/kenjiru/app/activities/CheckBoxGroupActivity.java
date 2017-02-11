@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import java.util.HashMap;
 import java.util.Map;
 
-import ro.kenjiru.ui.widgets.CheckBoxGroup;
+import ro.kenjiru.ui.widgets.toolbar.FormattingToolbar;
 
 public class CheckBoxGroupActivity extends AppCompatActivity {
     private static final String TAG = "CheckBoxGroupActivity";
@@ -35,10 +35,10 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
             }
         });
 
-        CheckBoxGroup checkBoxGroup = (CheckBoxGroup) findViewById(R.id.format_checkbox_group);
-        checkBoxGroup.setOnCheckedChangeListener(new CheckBoxGroup.OnCheckedChangeListener() {
+        FormattingToolbar formattingToolbar = (FormattingToolbar) findViewById(R.id.format_checkbox_group);
+        formattingToolbar.setOnCheckedChangeListener(new FormattingToolbar.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CheckBoxGroup group, int checkBoxId, boolean checked) {
+            public void onCheckedChanged(FormattingToolbar group, int checkBoxId, boolean checked) {
                 Log.i(TAG, "Button checked");
             }
         });
@@ -47,7 +47,7 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
         Map<Integer, Boolean> state = new HashMap<Integer, Boolean>();
         state.put(R.id.indent, true);
         state.put(R.id.outdent, true);
-        checkBoxGroup.checkAll(state);
+        formattingToolbar.checkAll(state);
     }
 
     @Override
