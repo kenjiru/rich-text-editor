@@ -238,6 +238,40 @@ public abstract class ComplexDecoration<S, V> {
         str.removeSpan(spansInSelection[0]);
     }
 
+    public void indent(RichTextEditor editor) {
+        updateIndentation(editor, true);
+    }
+
+    public void outdent(RichTextEditor editor) {
+        updateIndentation(editor, false);
+    }
+
+    private void updateIndentation(RichTextEditor editor, boolean indent) {
+        Spannable spannable = editor.getText();
+        Selection selection = new Selection(editor);
+        S[] spansInSelection = getSpans(spannable, selection);
+
+        for (S span: spansInSelection) {
+            // FIXME This method will only handle BulletSpans, so it should be extracted
+            BulletSpan bulletSpan = (BulletSpan) span;
+
+            int spanStart = spannable.getSpanStart(bulletSpan);
+            int spanEnd = spannable.getSpanEnd(bulletSpan);
+
+            if (indent) {
+                bulletSpan.indent();
+            } else {
+                bulletSpan.outdent();
+            }
+
+            // We set the same span again in order to force the EditText to redraw the span.
+            // This does not reflow the text.
+            // There might be better ways achieve the same goal.
+            spannable.setSpan(bulletSpan, spanStart, spanEnd, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        }
+    }
+
+
     private S newSpanInstance() {
         try {
             if (value == null) {

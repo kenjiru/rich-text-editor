@@ -98,6 +98,15 @@ public class RichTextEditor extends EditText {
         listDecoration.applyToAllLinesInSelection(this, add);
     }
 
+    public void indentList() {
+        listDecoration.indent(this);
+        this.invalidate();
+    }
+
+    public void outdentList() {
+        listDecoration.outdent(this);
+    }
+
     public boolean isUnderline() {
         return underlineDecoration.existsInSelection(this);
     }

@@ -58,6 +58,14 @@ public class RichTextEditorActivity extends AppCompatActivity
             case R.id.list:
                 editor.toggleList();
                 break;
+
+            case R.id.indent:
+                editor.indentList();
+                break;
+
+            case R.id.outdent:
+                editor.outdentList();
+                break;
         }
     }
 

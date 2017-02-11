@@ -8,11 +8,11 @@ import android.text.Layout;
 import android.text.Spanned;
 
 public class BulletSpan extends android.text.style.BulletSpan {
-    private static final int GRAPHIC_SIZE = 10;
+    private static final int GRAPHIC_SIZE = 14;
     private BulletType bulletType = BulletType.TRIANGLE;
 
     private Paint mPaintBorder;
-    private int mWidth = 2;
+    private int mIndent = 1;
 
     public enum BulletType {FULL_CIRCLE, EMPTY_CIRCLE, TRIANGLE}
 
@@ -31,6 +31,21 @@ public class BulletSpan extends android.text.style.BulletSpan {
         this.bulletType = bulletType;
     }
 
+    public void indent() {
+        ++mIndent;
+    }
+
+    public void outdent() {
+        if (mIndent > 1) {
+            --mIndent;
+        }
+    }
+
+    @Override
+    public int getLeadingMargin(boolean first) {
+        return super.getLeadingMargin(first) * mIndent;
+    }
+
     @Override
     public void drawLeadingMargin(Canvas c, Paint p, int x, int dir,
                                   int top, int baseline, int bottom,
@@ -39,6 +54,8 @@ public class BulletSpan extends android.text.style.BulletSpan {
         c.drawRect(x, top, x + l.getWidth(), bottom, mPaintBorder);
 
         if (((Spanned) text).getSpanStart(this) == start) {
+            x += super.getLeadingMargin(true) * (mIndent - 1);
+
             if (bulletType == BulletType.TRIANGLE) {
                 drawTriangle(c, p, x + 10, dir, top, bottom);
             } else {
