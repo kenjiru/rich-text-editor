@@ -15,7 +15,9 @@ import ro.kenjiru.ui.widgets.toolbar.FormattingToolbar;
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
 
 public class RichTextEditorActivity extends AppCompatActivity
-        implements RichTextEditor.OnSelectionChangedListener, FormattingToolbar.OnCheckedChangeListener {
+        implements RichTextEditor.OnSelectionChangedListener, FormattingToolbar.OnCheckedChangeListener,
+        FormattingToolbar.OnChildClickListener {
+
     private static final String TAG = "RichTextEditorActivity";
 
     private RichTextEditor editor;
@@ -33,11 +35,17 @@ public class RichTextEditorActivity extends AppCompatActivity
 
         FormattingToolbar formattingToolbar = (FormattingToolbar) findViewById(R.id.format_checkbox_group);
         formattingToolbar.setOnCheckedChangeListener(this);
+        formattingToolbar.setOnChildClickListener(this);
         this.formattingToolbar = formattingToolbar;
 
         RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
         editor.addOnSelectionChangedListener(this);
         this.editor = editor;
+    }
+
+    @Override
+    public void onChildClick(View v) {
+        Log.i(TAG, String.format("onChildButtonClicked > button clicked: %d", v.getId()));
     }
 
     @Override

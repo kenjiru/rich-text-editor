@@ -18,7 +18,14 @@ public class FormattingToolbar extends LinearLayout {
     private int uncheckedColor;
     private int checkedColor;
 
+    // OnClickListener used to track the child click events
+    private OnClickListener mOnClickListener;
+    // Custom listener to track which button was clicked
+    private OnChildClickListener mOnChildClickListener;
+
+    // TODO Investigate if this redundant
     private CheckedStateTracker mChildOnCheckedChangeListener;
+    // OnCheckedChangeListener used to notify external views
     private OnCheckedChangeListener mOnCheckedChangeListener;
     private PassThroughHierarchyChangeListener mPassThroughListener;
 
@@ -31,8 +38,18 @@ public class FormattingToolbar extends LinearLayout {
         init(attrs);
 
         mChildOnCheckedChangeListener = new CheckedStateTracker();
+
         mPassThroughListener = new PassThroughHierarchyChangeListener();
         super.setOnHierarchyChangeListener(mPassThroughListener);
+
+        mOnClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnChildClickListener != null) {
+                    mOnChildClickListener.onChildClick(v);
+                }
+            }
+        };
     }
 
     private void init(AttributeSet attrs) {
@@ -95,6 +112,14 @@ public class FormattingToolbar extends LinearLayout {
         mOnCheckedChangeListener = listener;
     }
 
+    public void setOnChildClickListener(OnChildClickListener listener) {
+        mOnChildClickListener = listener;
+    }
+
+    public interface OnChildClickListener {
+        void onChildClick(View v);
+    }
+
     public interface OnCheckedChangeListener {
         void onCheckedChanged(FormattingToolbar group, int checkBoxId, boolean checked);
     }
@@ -115,23 +140,36 @@ public class FormattingToolbar extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewAdded(View parent, View child) {
-            if (parent == FormattingToolbar.this && child instanceof CheckBox) {
-                int id = child.getId();
-                // generates an id if it's missing
-                if (id == View.NO_ID) {
-                    id = View.generateViewId();
-                    child.setId(id);
+            if (parent != FormattingToolbar.this) {
+                return;
+            }
+
+            int id = child.getId();
+            // generates an id if it's missing
+            if (id == View.NO_ID) {
+                id = View.generateViewId();
+                child.setId(id);
+            }
+
+            if (child instanceof ToolbarWidget) {
+                ToolbarWidget toolbarWidget = (ToolbarWidget) child;
+
+                if (fontType != null && toolbarWidget.getFontType() == null) {
+                    toolbarWidget.setFontType(fontType);
                 }
 
+                if (textSizeAttribute != 0 && toolbarWidget.getTextSizeAttribute() == 0) {
+                    toolbarWidget.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeAttribute);
+                }
+            }
+
+            if (child instanceof Button) {
+                child.setOnClickListener(mOnClickListener);
+            }
+
+            if (child instanceof CheckBox) {
                 CheckBox checkBox = (CheckBox) child;
 
-                if (fontType != null && checkBox.getFontType() == null) {
-                    checkBox.setFontType(fontType);
-                }
-
-                if (textSizeAttribute != 0 && checkBox.getTextSizeAttribute() == 0) {
-                    checkBox.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeAttribute);
-                }
                 if (uncheckedColor != 0 && checkBox.getUncheckedColor() == 0) {
                     checkBox.setUncheckedColor(uncheckedColor);
                 }
@@ -151,6 +189,10 @@ public class FormattingToolbar extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewRemoved(View parent, View child) {
+            if (parent == FormattingToolbar.this && child instanceof Button) {
+                child.setOnClickListener(null);
+            }
+
             if (parent == FormattingToolbar.this && child instanceof CheckBox) {
                 ((CheckBox) child).setOnCheckedChangeListener(null);
             }
