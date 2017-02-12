@@ -35,7 +35,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@color/format_toolbar_background"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <include layout="@layout/format_toolbar" />
     </android.support.v7.widget.Toolbar>
