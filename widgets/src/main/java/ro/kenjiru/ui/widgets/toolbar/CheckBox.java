@@ -1,24 +1,18 @@
 package ro.kenjiru.ui.widgets.toolbar;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.Checkable;
-import android.widget.TextView;
 
 import ro.kenjiru.ui.widgets.R;
 
-public class CheckBox extends TextView implements Checkable {
-    private float defaultBoxTextSize = 18;
+public class CheckBox extends ToolbarWidget implements Checkable {
     private int defaultUncheckedColor;
     private int defaultCheckedColor = Color.CYAN;
 
-    private String fontType = null;
-    private float boxTextSize = 0;
     private int uncheckedColor = 0;
     private int checkedColor = 0;
 
@@ -61,12 +55,6 @@ public class CheckBox extends TextView implements Checkable {
     private void updateAttributes(AttributeSet attrs) {
         TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.CheckBox);
 
-        fontType = styledAttributes.getString(R.styleable.CheckBox_fontType);
-        updateFontType();
-
-        boxTextSize = styledAttributes.getDimension(R.styleable.CheckBox_boxTextSize, defaultBoxTextSize);
-        updateTextSize();
-
         defaultUncheckedColor = getCurrentTextColor();
         mChecked = styledAttributes.getBoolean(R.styleable.CheckBox_checked, false);
         uncheckedColor = styledAttributes.getColor(R.styleable.CheckBox_uncheckedColor, defaultUncheckedColor);
@@ -74,14 +62,6 @@ public class CheckBox extends TextView implements Checkable {
         updateTextColor();
 
         styledAttributes.recycle();
-    }
-
-    public String getFontType() {
-        return fontType;
-    }
-
-    public float getBoxTextSize() {
-        return boxTextSize;
     }
 
     public int getUncheckedColor() {
@@ -92,16 +72,6 @@ public class CheckBox extends TextView implements Checkable {
         return checkedColor;
     }
 
-    public void setFontType(String fontType) {
-        this.fontType = fontType;
-        updateFontType();
-    }
-
-    public void setBoxTextSize(float textSize) {
-        this.boxTextSize = textSize;
-        updateTextSize();
-    }
-
     public void setUncheckedColor(int uncheckedColor) {
         this.uncheckedColor = uncheckedColor;
         updateTextColor();
@@ -110,21 +80,6 @@ public class CheckBox extends TextView implements Checkable {
     public void setCheckedColor(int checkedColor) {
         this.checkedColor = checkedColor;
         updateTextColor();
-    }
-
-    private void updateFontType() {
-        if (fontType == null) {
-            return;
-        }
-
-        AssetManager assets = getContext().getAssets();
-        Typeface typeface = Typeface.createFromAsset(assets, fontType);
-
-        setTypeface(typeface);
-    }
-
-    private void updateTextSize() {
-        setTextSize(boxTextSize);
     }
 
     private void updateTextColor() {

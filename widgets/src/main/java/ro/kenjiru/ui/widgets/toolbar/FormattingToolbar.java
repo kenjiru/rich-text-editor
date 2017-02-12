@@ -3,6 +3,7 @@ package ro.kenjiru.ui.widgets.toolbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -13,7 +14,7 @@ import ro.kenjiru.ui.widgets.R;
 
 public class FormattingToolbar extends LinearLayout {
     private String fontType = null;
-    private float boxTextSize;
+    private float textSizeAttribute;
     private int uncheckedColor;
     private int checkedColor;
 
@@ -41,8 +42,8 @@ public class FormattingToolbar extends LinearLayout {
 
         TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.FormattingToolbar);
 
+        textSizeAttribute = styledAttributes.getDimensionPixelSize(R.styleable.FormattingToolbar_android_textSize, 0);
         fontType = styledAttributes.getString(R.styleable.FormattingToolbar_fontType);
-        boxTextSize = styledAttributes.getDimension(R.styleable.FormattingToolbar_boxTextSize, 0);
         uncheckedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_uncheckedColor, 0);
         checkedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_checkedColor, 0);
 
@@ -128,8 +129,8 @@ public class FormattingToolbar extends LinearLayout {
                     checkBox.setFontType(fontType);
                 }
 
-                if (boxTextSize != 0 && checkBox.getBoxTextSize() == 0) {
-                    checkBox.setBoxTextSize(boxTextSize);
+                if (textSizeAttribute != 0 && checkBox.getTextSizeAttribute() == 0) {
+                    checkBox.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeAttribute);
                 }
                 if (uncheckedColor != 0 && checkBox.getUncheckedColor() == 0) {
                     checkBox.setUncheckedColor(uncheckedColor);

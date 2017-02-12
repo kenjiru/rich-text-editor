@@ -1,25 +1,28 @@
 <resources>
     <attr name="checked" format="boolean" />
     <attr name="fontType" format="string" />
-    <attr name="boxTextSize" format="dimension" />
     <attr name="checkedColor" format="color" />
     <attr name="uncheckedColor" format="color" />
 
-    <declare-styleable name="CustomTextView">
-        <attr name="fontType" />
-    </declare-styleable>
-
     <declare-styleable name="FormattingToolbar">
+        <!--
+            When using a standard Android attribute, we have to specify the namespace.
+            We specify the standard attribute here, so that we can access it using the same
+            AttributeSet in the constructor of our custom component.
+        -->
+        <attr name="android:textSize" />
         <attr name="fontType" />
-        <attr name="boxTextSize" />
         <attr name="checkedColor" />
         <attr name="uncheckedColor" />
     </declare-styleable>
 
+    <declare-styleable name="ToolbarWidget">
+        <attr name="android:textSize" />
+        <attr name="fontType" />
+    </declare-styleable>
+
     <declare-styleable name="CheckBox">
         <attr name="checked" />
-        <attr name="fontType" />
-        <attr name="boxTextSize" />
         <attr name="checkedColor" />
         <attr name="uncheckedColor" />
     </declare-styleable>

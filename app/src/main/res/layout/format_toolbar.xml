@@ -12,7 +12,7 @@
             android:id="@+id/format_checkbox_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:boxTextSize="20dp"
+            android:textSize="20dp"
             app:fontType="fonts/rich-text-editor-material.ttf">
 
             <ro.kenjiru.ui.widgets.toolbar.CheckBox
