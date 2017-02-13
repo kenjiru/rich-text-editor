@@ -23,10 +23,10 @@ public class FormattingToolbar extends LinearLayout {
     // Custom listener to track which button was clicked
     private OnChildClickListener mOnChildClickListener;
 
-    // TODO Investigate if this redundant
-    private CheckedStateTracker mChildOnCheckedChangeListener;
-    // OnCheckedChangeListener used to notify external views
-    private OnCheckedChangeListener mOnCheckedChangeListener;
+    // used to track the state of the child views
+    private CheckBox.OnCheckedChangeListener mChildOnCheckedChangeListener;
+    // used to notify external views when a child check changed
+    private OnChildCheckedChangeListener mOnChildCheckedChangeListener;
     private PassThroughHierarchyChangeListener mPassThroughListener;
 
     public FormattingToolbar(Context context) {
@@ -37,7 +37,12 @@ public class FormattingToolbar extends LinearLayout {
         super(context, attrs);
         init(attrs);
 
-        mChildOnCheckedChangeListener = new CheckedStateTracker();
+        mChildOnCheckedChangeListener = new CheckBox.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CheckBox checkBoxView, boolean isChecked) {
+                notifyChecked(checkBoxView.getId(), isChecked);
+            }
+        };
 
         mPassThroughListener = new PassThroughHierarchyChangeListener();
         super.setOnHierarchyChangeListener(mPassThroughListener);
@@ -77,7 +82,7 @@ public class FormattingToolbar extends LinearLayout {
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         if (child instanceof CheckBox) {
             CheckBox button = (CheckBox) child;
-            setChecked(button.getId(), button.isChecked());
+            notifyChecked(button.getId(), button.isChecked());
         }
 
         super.addView(child, index, params);
@@ -91,7 +96,7 @@ public class FormattingToolbar extends LinearLayout {
 
     public void check(int checkBoxId, boolean checked) {
         setCheckedStateForView(checkBoxId, checked);
-        setChecked(checkBoxId, checked);
+        notifyChecked(checkBoxId, checked);
     }
 
     private void setCheckedStateForView(int viewId, boolean checked) {
@@ -102,14 +107,14 @@ public class FormattingToolbar extends LinearLayout {
         }
     }
 
-    private void setChecked(int checkBoxId, boolean checked) {
-        if (mOnCheckedChangeListener != null) {
-            mOnCheckedChangeListener.onCheckedChanged(this, checkBoxId, checked);
+    private void notifyChecked(int checkBoxId, boolean checked) {
+        if (mOnChildCheckedChangeListener != null) {
+            mOnChildCheckedChangeListener.onCheckedChanged(this, checkBoxId, checked);
         }
     }
 
-    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
-        mOnCheckedChangeListener = listener;
+    public void setOnCheckedChangeListener(OnChildCheckedChangeListener listener) {
+        mOnChildCheckedChangeListener = listener;
     }
 
     public void setOnChildClickListener(OnChildClickListener listener) {
@@ -120,16 +125,8 @@ public class FormattingToolbar extends LinearLayout {
         void onChildClick(View v);
     }
 
-    public interface OnCheckedChangeListener {
+    public interface OnChildCheckedChangeListener {
         void onCheckedChanged(FormattingToolbar group, int checkBoxId, boolean checked);
-    }
-
-    private class CheckedStateTracker implements CheckBox.OnCheckedChangeListener {
-        public void onCheckedChanged(CheckBox checkBox, boolean isChecked) {
-            int buttonId = checkBox.getId();
-
-            setChecked(buttonId, isChecked);
-        }
     }
 
     private class PassThroughHierarchyChangeListener implements

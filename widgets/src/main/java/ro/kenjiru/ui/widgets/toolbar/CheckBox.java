@@ -128,7 +128,7 @@ public class CheckBox extends ToolbarWidget implements Checkable {
         setChecked(!mChecked);
     }
 
-    public static interface OnCheckedChangeListener {
+    public interface OnCheckedChangeListener {
         void onCheckedChanged(CheckBox checkBoxView, boolean isChecked);
     }
 }

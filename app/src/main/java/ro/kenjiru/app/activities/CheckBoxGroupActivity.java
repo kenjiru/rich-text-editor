@@ -36,7 +36,7 @@ public class CheckBoxGroupActivity extends AppCompatActivity {
         });
 
         FormattingToolbar formattingToolbar = (FormattingToolbar) findViewById(R.id.format_checkbox_group);
-        formattingToolbar.setOnCheckedChangeListener(new FormattingToolbar.OnCheckedChangeListener() {
+        formattingToolbar.setOnCheckedChangeListener(new FormattingToolbar.OnChildCheckedChangeListener() {
             @Override
             public void onCheckedChanged(FormattingToolbar group, int checkBoxId, boolean checked) {
                 Log.i(TAG, "Button checked");
