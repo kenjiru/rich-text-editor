@@ -57,13 +57,13 @@
                 android:layout_height="match_parent"
                 android:text="\ue241" />
 
-            <ro.kenjiru.ui.widgets.toolbar.CheckBox
+            <ro.kenjiru.ui.widgets.toolbar.Button
                 android:id="@+id/indent"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:text="\ue23e" />
 
-            <ro.kenjiru.ui.widgets.toolbar.CheckBox
+            <ro.kenjiru.ui.widgets.toolbar.Button
                 android:id="@+id/outdent"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"

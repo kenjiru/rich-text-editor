@@ -44,8 +44,18 @@ public class RichTextEditorActivity extends AppCompatActivity
     }
 
     @Override
-    public void onChildClick(View v) {
-        Log.i(TAG, String.format("onChildButtonClicked > button clicked: %d", v.getId()));
+    public void onChildClick(View view) {
+        Log.i(TAG, String.format("onChildButtonClicked > button clicked: %d", view.getId()));
+
+        switch (view.getId()) {
+            case R.id.indent:
+                editor.indentList();
+                break;
+
+            case R.id.outdent:
+                editor.outdentList();
+                break;
+        }
     }
 
     @Override
@@ -65,14 +75,6 @@ public class RichTextEditorActivity extends AppCompatActivity
 
             case R.id.list:
                 editor.toggleList();
-                break;
-
-            case R.id.indent:
-                editor.indentList();
-                break;
-
-            case R.id.outdent:
-                editor.outdentList();
                 break;
         }
     }
