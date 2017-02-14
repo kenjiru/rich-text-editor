@@ -10,10 +10,9 @@ import android.widget.Checkable;
 import ro.kenjiru.ui.widgets.R;
 
 public class CheckBox extends ToolbarWidget implements Checkable {
-    private int defaultUncheckedColor;
     private int defaultCheckedColor = Color.CYAN;
 
-    private int uncheckedColor = 0;
+    private int previousColor = 0;
     private int checkedColor = 0;
 
     private boolean mChecked;
@@ -55,36 +54,21 @@ public class CheckBox extends ToolbarWidget implements Checkable {
     private void updateAttributes(AttributeSet attrs) {
         TypedArray styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.CheckBox);
 
-        defaultUncheckedColor = getCurrentTextColor();
+        previousColor = getCurrentTextColor();
         mChecked = styledAttributes.getBoolean(R.styleable.CheckBox_checked, false);
-        uncheckedColor = styledAttributes.getColor(R.styleable.CheckBox_uncheckedColor, defaultUncheckedColor);
         checkedColor = styledAttributes.getColor(R.styleable.CheckBox_checkedColor, defaultCheckedColor);
-        updateTextColor();
+        updateCheckedTextColor();
 
         styledAttributes.recycle();
-    }
-
-    public int getUncheckedColor() {
-        return uncheckedColor;
     }
 
     public int getCheckedColor() {
         return checkedColor;
     }
 
-    public void setUncheckedColor(int uncheckedColor) {
-        this.uncheckedColor = uncheckedColor;
-        updateTextColor();
-    }
-
     public void setCheckedColor(int checkedColor) {
         this.checkedColor = checkedColor;
-        updateTextColor();
-    }
-
-    private void updateTextColor() {
-        int textColor = mChecked ? checkedColor : uncheckedColor;
-        setTextColor(textColor);
+        updateCheckedTextColor();
     }
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
@@ -103,7 +87,7 @@ public class CheckBox extends ToolbarWidget implements Checkable {
         if (mChecked != checked) {
             mChecked = checked;
 
-            this.updateTextColor();
+            this.updateCheckedTextColor();
 
             // Avoid infinite recursions if setChecked() is called from a listener
             if (mBroadcasting) {
@@ -126,6 +110,16 @@ public class CheckBox extends ToolbarWidget implements Checkable {
     @Override
     public void toggle() {
         setChecked(!mChecked);
+    }
+
+    protected void updateCheckedTextColor() {
+        if (mChecked) {
+            previousColor = getCurrentTextColor();
+
+            setTextColor(checkedColor);
+        } else {
+            setTextColor(previousColor);
+        }
     }
 
     public interface OnCheckedChangeListener {

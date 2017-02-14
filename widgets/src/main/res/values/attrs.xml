@@ -2,7 +2,6 @@
     <attr name="checked" format="boolean" />
     <attr name="fontType" format="string" />
     <attr name="checkedColor" format="color" />
-    <attr name="uncheckedColor" format="color" />
     <attr name="disabledColor" format="color" />
 
     <declare-styleable name="FormattingToolbar">
@@ -15,7 +14,6 @@
         <attr name="fontType" />
         <attr name="checkedColor" />
         <attr name="disabledColor" />
-        <attr name="uncheckedColor" />
     </declare-styleable>
 
     <declare-styleable name="ToolbarWidget">
@@ -27,6 +25,5 @@
     <declare-styleable name="CheckBox">
         <attr name="checked" />
         <attr name="checkedColor" />
-        <attr name="uncheckedColor" />
     </declare-styleable>
 </resources>

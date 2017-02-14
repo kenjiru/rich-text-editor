@@ -16,7 +16,6 @@ public class FormattingToolbar extends LinearLayout {
     private String fontType = null;
     private float textSizeAttribute;
     private int disabledColor;
-    private int uncheckedColor;
     private int checkedColor;
 
     // OnClickListener used to track the child click events
@@ -67,7 +66,6 @@ public class FormattingToolbar extends LinearLayout {
 
         textSizeAttribute = styledAttributes.getDimensionPixelSize(R.styleable.FormattingToolbar_android_textSize, 0);
         fontType = styledAttributes.getString(R.styleable.FormattingToolbar_fontType);
-        uncheckedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_uncheckedColor, 0);
         checkedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_checkedColor, 0);
         disabledColor = styledAttributes.getColor(R.styleable.FormattingToolbar_disabledColor, 0);
 
@@ -187,9 +185,6 @@ public class FormattingToolbar extends LinearLayout {
             if (child instanceof CheckBox) {
                 CheckBox checkBox = (CheckBox) child;
 
-                if (uncheckedColor != 0 && checkBox.getUncheckedColor() == 0) {
-                    checkBox.setUncheckedColor(uncheckedColor);
-                }
                 if (checkedColor != 0 && checkBox.getCheckedColor() == 0) {
                     checkBox.setCheckedColor(checkedColor);
                 }
