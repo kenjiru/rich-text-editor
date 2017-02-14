@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="format_toolbar_background">#ccc</color>
+    <color name="disabled">#9e9e9e</color>
 </resources>

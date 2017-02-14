@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="20dp"
+            app:disabledColor="@color/disabled"
             app:fontType="fonts/rich-text-editor-material.ttf">
 
             <ro.kenjiru.ui.widgets.toolbar.CheckBox
@@ -68,5 +69,6 @@
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:text="\ue23d" />
+
         </ro.kenjiru.ui.widgets.toolbar.FormattingToolbar>
     </HorizontalScrollView>

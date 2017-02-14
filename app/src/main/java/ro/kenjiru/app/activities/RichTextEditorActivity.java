@@ -92,6 +92,11 @@ public class RichTextEditorActivity extends AppCompatActivity
             put(R.id.list, richTextEditor.isList());
         }});
         formattingToolbar.setOnCheckedChangeListener(this);
+
+        formattingToolbar.disableAll(new HashMap<Integer, Boolean>() {{
+            put(R.id.indent, !richTextEditor.isList());
+            put(R.id.outdent, !richTextEditor.isList());
+        }});
     }
 
     @Override
