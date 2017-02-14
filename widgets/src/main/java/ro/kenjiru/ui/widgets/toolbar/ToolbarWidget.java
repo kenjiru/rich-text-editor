@@ -13,6 +13,9 @@ import ro.kenjiru.ui.widgets.R;
 public class ToolbarWidget extends TextView {
     private String fontType = null;
     private float textSizeAttribute = 0;
+    private int disabledColor = 0;
+    private int previousColor = 0;
+    private boolean disabled = false;
 
     public ToolbarWidget(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -53,7 +56,29 @@ public class ToolbarWidget extends TextView {
         // get the text size in pixels
         textSizeAttribute = styledAttributes.getDimensionPixelSize(R.styleable.ToolbarWidget_android_textSize, 0);
 
+        previousColor = getCurrentTextColor();
+        disabledColor = styledAttributes.getColor(R.styleable.ToolbarWidget_disabledColor, 0);
+        updateDisabledTextColor();
+
         styledAttributes.recycle();
+    }
+
+    public int getDisabledColor() {
+        return disabledColor;
+    }
+
+    public void setDisabledColor(int disabledColor) {
+        this.disabledColor = disabledColor;
+        updateDisabledTextColor();
+    }
+
+    public void setDisabled(boolean mDisabled) {
+        if (this.disabled != mDisabled) {
+            this.disabled = mDisabled;
+
+            updateDisabledTextColor();
+            setClickable(!mDisabled);
+        }
     }
 
     public float getTextSizeAttribute() {
@@ -78,5 +103,19 @@ public class ToolbarWidget extends TextView {
         Typeface typeface = Typeface.createFromAsset(assets, fontType);
 
         setTypeface(typeface);
+    }
+
+    protected void updateDisabledTextColor() {
+        if (disabledColor == 0) {
+            return;
+        }
+
+        if (disabled) {
+            previousColor = getCurrentTextColor();
+
+            setTextColor(disabledColor);
+        } else {
+            setTextColor(previousColor);
+        }
     }
 }

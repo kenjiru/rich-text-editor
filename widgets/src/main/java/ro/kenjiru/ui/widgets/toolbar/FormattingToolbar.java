@@ -15,6 +15,7 @@ import ro.kenjiru.ui.widgets.R;
 public class FormattingToolbar extends LinearLayout {
     private String fontType = null;
     private float textSizeAttribute;
+    private int disabledColor;
     private int uncheckedColor;
     private int checkedColor;
 
@@ -68,6 +69,7 @@ public class FormattingToolbar extends LinearLayout {
         fontType = styledAttributes.getString(R.styleable.FormattingToolbar_fontType);
         uncheckedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_uncheckedColor, 0);
         checkedColor = styledAttributes.getColor(R.styleable.FormattingToolbar_checkedColor, 0);
+        disabledColor = styledAttributes.getColor(R.styleable.FormattingToolbar_disabledColor, 0);
 
         styledAttributes.recycle();
     }
@@ -86,6 +88,20 @@ public class FormattingToolbar extends LinearLayout {
         }
 
         super.addView(child, index, params);
+    }
+
+    public void disableAll(Map<Integer, Boolean> stateMap) {
+        for (Map.Entry<Integer, Boolean> entry : stateMap.entrySet()) {
+            this.disable(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public void disable(int viewId, boolean disabled) {
+        View view = findViewById(viewId);
+
+        if (view != null && view instanceof ToolbarWidget) {
+            ((ToolbarWidget) view).setDisabled(disabled);
+        }
     }
 
     public void checkAll(Map<Integer, Boolean> stateMap) {
@@ -157,6 +173,10 @@ public class FormattingToolbar extends LinearLayout {
 
                 if (textSizeAttribute != 0 && toolbarWidget.getTextSizeAttribute() == 0) {
                     toolbarWidget.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeAttribute);
+                }
+
+                if (disabledColor != 0 && toolbarWidget.getDisabledColor() == 0) {
+                    toolbarWidget.setDisabledColor(disabledColor);
                 }
             }
 
