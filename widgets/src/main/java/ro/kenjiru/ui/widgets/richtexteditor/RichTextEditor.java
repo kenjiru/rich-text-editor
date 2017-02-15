@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
@@ -17,6 +18,7 @@ public class RichTextEditor extends EditText {
     StyleDecoration boldDecoration = new StyleDecoration(Typeface.BOLD);
     StyleDecoration italicDecoration = new StyleDecoration(Typeface.ITALIC);
     ListDecoration listDecoration = new ListDecoration();
+    StrikeThroughDecoration strikeThroughDecoration = new StrikeThroughDecoration();
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
     private boolean isProcessing = false;
@@ -93,6 +95,11 @@ public class RichTextEditor extends EditText {
         italicDecoration.applyToSelection(this, add);
     }
 
+    public void toggleStrikeThrough() {
+        boolean add = !isStrikeThrough();
+        strikeThroughDecoration.applyToSelection(this, add);
+    }
+
     public void toggleList() {
         boolean add = !isList();
         listDecoration.applyToAllLinesInSelection(this, add);
@@ -119,6 +126,10 @@ public class RichTextEditor extends EditText {
         return italicDecoration.existsInSelection(this);
     }
 
+    public boolean isStrikeThrough() {
+        return strikeThroughDecoration.existsInSelection(this);
+    }
+
     public boolean isList() {
         return listDecoration.areAllLinesWrapped(this);
     }
@@ -136,6 +147,18 @@ public class RichTextEditor extends EditText {
 
     public interface OnSelectionChangedListener {
         void onSelectionChanged(RichTextEditor richTextEditor, int selStart, int selEnd);
+    }
+
+    class StrikeThroughDecoration extends ComplexDecoration<StrikethroughSpan, Boolean> {
+
+        public StrikeThroughDecoration() {
+            super(StrikethroughSpan.class);
+        }
+
+        @Override
+        public Boolean getSpanValue(StrikethroughSpan span) {
+            return true;
+        }
     }
 
     class UnderlineDecoration extends ComplexDecoration<UnderlineSpan, Boolean> {

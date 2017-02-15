@@ -73,6 +73,10 @@ public class RichTextEditorActivity extends AppCompatActivity
                 editor.toggleUnderline();
                 break;
 
+            case R.id.strike:
+                editor.toggleStrikeThrough();
+                break;
+
             case R.id.list:
                 editor.toggleList();
                 break;
@@ -89,6 +93,7 @@ public class RichTextEditorActivity extends AppCompatActivity
             put(R.id.bold, richTextEditor.isBold());
             put(R.id.italic, richTextEditor.isItalic());
             put(R.id.underline, richTextEditor.isUnderline());
+            put(R.id.strike, richTextEditor.isStrikeThrough());
             put(R.id.list, richTextEditor.isList());
         }});
         formattingToolbar.setOnCheckedChangeListener(this);
