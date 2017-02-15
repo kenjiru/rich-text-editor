@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import ro.kenjiru.ui.widgets.R;
 import ro.kenjiru.ui.widgets.richtexteditor.experiment.ComplexDecoration;
 import ro.kenjiru.ui.widgets.richtexteditor.spans.BulletSpan;
 
@@ -19,6 +21,7 @@ public class RichTextEditor extends EditText {
     StyleDecoration italicDecoration = new StyleDecoration(Typeface.ITALIC);
     ListDecoration listDecoration = new ListDecoration();
     StrikeThroughDecoration strikeThroughDecoration = new StrikeThroughDecoration();
+    HighlightDecoration highlightDecoration = new HighlightDecoration();
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
     private boolean isProcessing = false;
@@ -100,6 +103,11 @@ public class RichTextEditor extends EditText {
         strikeThroughDecoration.applyToSelection(this, add);
     }
 
+    public void toggleHighlight() {
+        boolean add = !isHighlight();
+        highlightDecoration.applyToSelection(this, add);
+    }
+
     public void toggleList() {
         boolean add = !isList();
         listDecoration.applyToAllLinesInSelection(this, add);
@@ -128,6 +136,10 @@ public class RichTextEditor extends EditText {
 
     public boolean isStrikeThrough() {
         return strikeThroughDecoration.existsInSelection(this);
+    }
+
+    public boolean isHighlight() {
+        return highlightDecoration.existsInSelection(this);
     }
 
     public boolean isList() {
@@ -193,6 +205,17 @@ public class RichTextEditor extends EditText {
         @Override
         public Integer getSpanValue(BulletSpan span) {
             return 50;
+        }
+    }
+
+    class HighlightDecoration extends ComplexDecoration<BackgroundColorSpan, Integer> {
+        public HighlightDecoration() {
+            super(BackgroundColorSpan.class, int.class, getResources().getColor(R.color.highlight, null));
+        }
+
+        @Override
+        public Integer getSpanValue(BackgroundColorSpan span) {
+            return getResources().getColor(R.color.highlight, null);
         }
     }
 }

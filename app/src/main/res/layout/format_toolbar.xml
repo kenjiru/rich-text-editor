@@ -41,6 +41,12 @@
                 android:text="\ue257" />
 
             <ro.kenjiru.ui.widgets.toolbar.CheckBox
+                android:id="@+id/highlight"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:text="\ue254" />
+
+            <ro.kenjiru.ui.widgets.toolbar.CheckBox
                 android:id="@+id/increase_font"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
