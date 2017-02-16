@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class RichTextEditor extends EditText {
     ListDecoration listDecoration = new ListDecoration();
     StrikeThroughDecoration strikeThroughDecoration = new StrikeThroughDecoration();
     HighlightDecoration highlightDecoration = new HighlightDecoration();
+    FixedWidthDecoration fixedWidthDecoration = new FixedWidthDecoration();
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
     private boolean isProcessing = false;
@@ -108,6 +110,11 @@ public class RichTextEditor extends EditText {
         highlightDecoration.applyToSelection(this, add);
     }
 
+    public void toggleFixedWidth() {
+        boolean add = !isFixedWidth();
+        fixedWidthDecoration.applyToSelection(this, add);
+    }
+
     public void toggleList() {
         boolean add = !isList();
         listDecoration.applyToAllLinesInSelection(this, add);
@@ -140,6 +147,10 @@ public class RichTextEditor extends EditText {
 
     public boolean isHighlight() {
         return highlightDecoration.existsInSelection(this);
+    }
+
+    public boolean isFixedWidth() {
+        return fixedWidthDecoration.existsInSelection(this);
     }
 
     public boolean isList() {
@@ -216,6 +227,17 @@ public class RichTextEditor extends EditText {
         @Override
         public Integer getSpanValue(BackgroundColorSpan span) {
             return getResources().getColor(R.color.highlight, null);
+        }
+    }
+
+    class FixedWidthDecoration extends ComplexDecoration<TypefaceSpan, String> {
+        public FixedWidthDecoration() {
+            super(TypefaceSpan.class, String.class, "monospace");
+        }
+
+        @Override
+        public String getSpanValue(TypefaceSpan span) {
+            return "monospace";
         }
     }
 }

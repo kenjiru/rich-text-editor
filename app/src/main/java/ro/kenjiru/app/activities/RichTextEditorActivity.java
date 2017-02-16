@@ -81,6 +81,10 @@ public class RichTextEditorActivity extends AppCompatActivity
                 editor.toggleHighlight();
                 break;
 
+            case R.id.fixed_width:
+                editor.toggleFixedWidth();
+                break;
+
             case R.id.list:
                 editor.toggleList();
                 break;
@@ -99,6 +103,7 @@ public class RichTextEditorActivity extends AppCompatActivity
             put(R.id.underline, richTextEditor.isUnderline());
             put(R.id.strike, richTextEditor.isStrikeThrough());
             put(R.id.highlight, richTextEditor.isHighlight());
+            put(R.id.fixed_width, richTextEditor.isFixedWidth());
             put(R.id.list, richTextEditor.isList());
         }});
         formattingToolbar.setOnCheckedChangeListener(this);
