@@ -55,6 +55,10 @@ public class RichTextEditorActivity extends AppCompatActivity
             case R.id.outdent:
                 editor.outdentList();
                 break;
+
+            case R.id.text_size:
+                editor.updateTextSize();
+                break;
         }
     }
 

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
@@ -24,6 +25,7 @@ public class RichTextEditor extends EditText {
     StrikeThroughDecoration strikeThroughDecoration = new StrikeThroughDecoration();
     HighlightDecoration highlightDecoration = new HighlightDecoration();
     FixedWidthDecoration fixedWidthDecoration = new FixedWidthDecoration();
+    RelativeSizeDecoration relativeSizeDecoration = new RelativeSizeDecoration();
 
     private OnSelectionChangedListener mOnSelectionChangedListener;
     private boolean isProcessing = false;
@@ -115,6 +117,11 @@ public class RichTextEditor extends EditText {
         fixedWidthDecoration.applyToSelection(this, add);
     }
 
+    public void updateTextSize() {
+        boolean add = !isRelativeSize();
+        relativeSizeDecoration.applyToSelection(this, add, 1.5f);
+    }
+
     public void toggleList() {
         boolean add = !isList();
         listDecoration.applyToAllLinesInSelection(this, add);
@@ -151,6 +158,10 @@ public class RichTextEditor extends EditText {
 
     public boolean isFixedWidth() {
         return fixedWidthDecoration.existsInSelection(this);
+    }
+
+    public boolean isRelativeSize() {
+        return relativeSizeDecoration.existsInSelection(this);
     }
 
     public boolean isList() {
@@ -238,6 +249,17 @@ public class RichTextEditor extends EditText {
         @Override
         public String getSpanValue(TypefaceSpan span) {
             return "monospace";
+        }
+    }
+
+    class RelativeSizeDecoration extends ComplexDecoration<RelativeSizeSpan, Float> {
+        public RelativeSizeDecoration() {
+            super(RelativeSizeSpan.class, float.class, 1f);
+        }
+
+        @Override
+        public Float getSpanValue(RelativeSizeSpan span) {
+            return span.getSizeChange();
         }
     }
 }

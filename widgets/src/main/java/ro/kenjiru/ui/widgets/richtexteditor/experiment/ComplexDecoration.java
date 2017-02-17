@@ -113,6 +113,10 @@ public abstract class ComplexDecoration<S, V> {
     }
 
     public void applyToSelection(RichTextEditor editor, Boolean add) {
+        applyToSelection(editor, add, this.value);
+    }
+
+    public void applyToSelection(RichTextEditor editor, Boolean add, V value) {
         Spannable str = editor.getText();
         Selection selection = new Selection(editor);
 
@@ -140,14 +144,14 @@ public abstract class ComplexDecoration<S, V> {
 
 
         if (add) {
-            str.setSpan(newSpanInstance(), selection.start, selection.end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            str.setSpan(newSpanInstance(value), selection.start, selection.end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             if (startOfFirstSpan < Integer.MAX_VALUE) {
-                str.setSpan(newSpanInstance(), startOfFirstSpan, selection.start, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                str.setSpan(spans[0], startOfFirstSpan, selection.start, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
             if (endOfLastSpan > -1) {
-                str.setSpan(newSpanInstance(), selection.end, endOfLastSpan, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                str.setSpan(spans[spans.length - 1], selection.end, endOfLastSpan, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
@@ -271,8 +275,11 @@ public abstract class ComplexDecoration<S, V> {
         }
     }
 
-
     private S newSpanInstance() {
+        return newSpanInstance(this.value);
+    }
+
+    private S newSpanInstance(V value) {
         try {
             if (value == null) {
                 return spanClass.newInstance();
@@ -282,6 +289,7 @@ public abstract class ComplexDecoration<S, V> {
         } catch (Exception e) {
             Log.e("RichTextEditor", "Exception instantiating " + spanClass.toString(), e);
         }
+
         return null;
     }
 
