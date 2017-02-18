@@ -1,6 +1,8 @@
 package ro.kenjiru.app.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,8 +13,9 @@ import android.view.View;
 
 import java.util.HashMap;
 
-import ro.kenjiru.ui.widgets.toolbar.FormattingToolbar;
 import ro.kenjiru.ui.widgets.richtexteditor.RichTextEditor;
+import ro.kenjiru.ui.widgets.richtexteditor.util.TextSize;
+import ro.kenjiru.ui.widgets.toolbar.FormattingToolbar;
 
 public class RichTextEditorActivity extends AppCompatActivity
         implements RichTextEditor.OnSelectionChangedListener, FormattingToolbar.OnChildCheckedChangeListener,
@@ -22,6 +25,9 @@ public class RichTextEditorActivity extends AppCompatActivity
 
     private RichTextEditor editor;
     private FormattingToolbar formattingToolbar;
+    private AlertDialog textSizeDialog;
+
+    private TextSize textSize = TextSize.NORMAL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,40 @@ public class RichTextEditorActivity extends AppCompatActivity
         RichTextEditor editor = (RichTextEditor) findViewById(R.id.editor);
         editor.addOnSelectionChangedListener(this);
         this.editor = editor;
+
+        this.textSizeDialog = this.createTextSizeDialog();
+    }
+
+    private AlertDialog createTextSizeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        textSize = TextSize.NORMAL;
+
+        // TODO Move this to a separate class
+        builder.setTitle("Select Priority")
+                .setSingleChoiceItems(TextSize.getValues(), 1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int itemIndex) {
+                        textSize = TextSize.fromOrdinal(itemIndex);
+                    }
+                })
+
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        editor.updateTextSize(textSize.getRatio());
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        return builder.create();
     }
 
     @Override
@@ -57,7 +97,7 @@ public class RichTextEditorActivity extends AppCompatActivity
                 break;
 
             case R.id.text_size:
-                editor.updateTextSize();
+                textSizeDialog.show();
                 break;
         }
     }

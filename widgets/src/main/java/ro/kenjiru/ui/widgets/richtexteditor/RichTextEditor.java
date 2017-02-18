@@ -16,6 +16,7 @@ import android.widget.EditText;
 import ro.kenjiru.ui.widgets.R;
 import ro.kenjiru.ui.widgets.richtexteditor.experiment.ComplexDecoration;
 import ro.kenjiru.ui.widgets.richtexteditor.spans.BulletSpan;
+import ro.kenjiru.ui.widgets.richtexteditor.util.TextSize;
 
 public class RichTextEditor extends EditText {
     UnderlineDecoration underlineDecoration = new UnderlineDecoration();
@@ -117,9 +118,9 @@ public class RichTextEditor extends EditText {
         fixedWidthDecoration.applyToSelection(this, add);
     }
 
-    public void updateTextSize() {
-        boolean add = !isRelativeSize();
-        relativeSizeDecoration.applyToSelection(this, add, 1.5f);
+    public void updateTextSize(float textSize) {
+        boolean add = textSize != TextSize.NORMAL.getRatio();
+        relativeSizeDecoration.applyToSelection(this, add, textSize);
     }
 
     public void toggleList() {
