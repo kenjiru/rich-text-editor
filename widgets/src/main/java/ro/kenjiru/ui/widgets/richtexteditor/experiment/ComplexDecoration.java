@@ -74,7 +74,7 @@ public abstract class ComplexDecoration<S, V> {
 
     private boolean existsInArray(S[] spans) {
         for (S span : spans) {
-            if (isSameSpan(span)) {
+            if (hasSameValue(span)) {
                 return true;
             }
         }
@@ -125,21 +125,19 @@ public abstract class ComplexDecoration<S, V> {
         S[] spans = getSpans(str, selection);
 
         for (S span : spans) {
-            if (isSameSpan(span)) {
-                int spanStart = str.getSpanStart(span);
+            int spanStart = str.getSpanStart(span);
 
-                if (spanStart < selection.start) {
-                    startOfFirstSpan = Math.min(startOfFirstSpan, spanStart);
-                }
-
-                int spanEnd = str.getSpanEnd(span);
-
-                if (spanEnd > selection.end) {
-                    endOfLastSpan = Math.max(endOfLastSpan, spanEnd);
-                }
-
-                str.removeSpan(span);
+            if (spanStart < selection.start) {
+                startOfFirstSpan = Math.min(startOfFirstSpan, spanStart);
             }
+
+            int spanEnd = str.getSpanEnd(span);
+
+            if (spanEnd > selection.end) {
+                endOfLastSpan = Math.max(endOfLastSpan, spanEnd);
+            }
+
+            str.removeSpan(span);
         }
 
 
@@ -297,7 +295,7 @@ public abstract class ComplexDecoration<S, V> {
         return str.getSpans(selection.start, selection.end, spanClass);
     }
 
-    private boolean isSameSpan(S span) {
+    private boolean hasSameValue(S span) {
         return value == null || value.equals(getSpanValue(span));
     }
 
